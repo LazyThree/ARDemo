@@ -692,10 +692,9 @@
             <p id="#gpsinfo">查看当前模型属性</p>
         </div>
         <a-scene
-            renderer="logarithmicDepthBuffer: true;"
-            embedded
-            loading-screen="enabled: false;"
-            arjs="sourceType: webcam; debugUIEnabled: false;"
+            vr-mode-ui="enabled: false" 
+            arjs="sourceType: webcam; videoTexture: true; 
+            debugUIEnabled: false;"
         >
             <a-assets>
                 <a-asset-item
