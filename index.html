@@ -18,6 +18,8 @@
                 const secondPos = new THREE.Vector3();
                 const el = this.el
                 const cylinder = this.el.querySelector("a-cylinder")
+                var elem = document.getElementById("#gpsinfo");
+                elem.innerHTML ="查看管道信息";
                 alert("注册第一根管道的组件");
                 cylinder.addEventListener('click', function(ev,target)
                 {
