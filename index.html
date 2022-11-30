@@ -7,6 +7,7 @@
         <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
         <script src="https://raw.githack.com/AR-js-org/AR.js/3.3.1/aframe/build/aframe-ar-nft.js"></script>
         <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+        <script src="https://unpkg.com/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js"></script>
         <script>
     AFRAME.registerComponent("tunnel", {
             init: function () {
@@ -16,7 +17,12 @@
                 const secondPos = new THREE.Vector3();
                 const el = this.el
                 const cylinder = this.el.querySelector("a-cylinder")
-
+                cylinder.addEventListener('click', function()
+                {
+                    //alert("点击了管道，触发了点击事件!");
+                    var elem = document.getElementById("#gpsinfo");
+                    elem.innerHTML="当前查看的是管道0";
+                })
                 const idx = setInterval(() => {
                     firstPos.copy(firstObj.object3D.position)
                     secondPos.copy(secondObj.object3D.position)
@@ -42,7 +48,12 @@
                 const secondPos = new THREE.Vector3();
                 const el = this.el
                 const cylinder = this.el.querySelector("a-cylinder")
-
+                cylinder.addEventListener('click', function()
+                {
+                    //alert("点击了管道，触发了点击事件!");
+                    var elem = document.getElementById("#gpsinfo");
+                    elem.innerHTML="当前查看的是管道1";
+                })
                 const idx = setInterval(() => {
                     firstPos.copy(firstObj.object3D.position)
                     secondPos.copy(secondObj.object3D.position)
@@ -68,7 +79,12 @@
                 const secondPos = new THREE.Vector3();
                 const el = this.el
                 const cylinder = this.el.querySelector("a-cylinder")
-
+                cylinder.addEventListener('click', function()
+                {
+                    //alert("点击了管道，触发了点击事件!");
+                    var elem = document.getElementById("#gpsinfo");
+                    elem.innerHTML="当前查看的是管道2";
+                })
                 const idx = setInterval(() => {
                     firstPos.copy(firstObj.object3D.position)
                     secondPos.copy(secondObj.object3D.position)
@@ -94,7 +110,12 @@
                 const secondPos = new THREE.Vector3();
                 const el = this.el
                 const cylinder = this.el.querySelector("a-cylinder")
-
+                cylinder.addEventListener('click', function()
+                {
+                    //alert("点击了管道，触发了点击事件!");
+                    var elem = document.getElementById("#gpsinfo");
+                    elem.innerHTML="当前查看的是管道3";
+                })
                 const idx = setInterval(() => {
                     firstPos.copy(firstObj.object3D.position)
                     secondPos.copy(secondObj.object3D.position)
@@ -120,7 +141,12 @@
                 const secondPos = new THREE.Vector3();
                 const el = this.el
                 const cylinder = this.el.querySelector("a-cylinder")
-
+                cylinder.addEventListener('click', function()
+                {
+                    //alert("点击了管道，触发了点击事件!");
+                    var elem = document.getElementById("#gpsinfo");
+                    elem.innerHTML="当前查看的是管道4";
+                })
                 const idx = setInterval(() => {
                     firstPos.copy(firstObj.object3D.position)
                     secondPos.copy(secondObj.object3D.position)
@@ -146,7 +172,12 @@
                 const secondPos = new THREE.Vector3();
                 const el = this.el
                 const cylinder = this.el.querySelector("a-cylinder")
-
+                cylinder.addEventListener('click', function()
+                {
+                    //alert("点击了管道，触发了点击事件!");
+                    var elem = document.getElementById("#gpsinfo");
+                    elem.innerHTML="当前查看的是管道5";
+                })
                 const idx = setInterval(() => {
                     firstPos.copy(firstObj.object3D.position)
                     secondPos.copy(secondObj.object3D.position)
@@ -172,7 +203,12 @@
                 const secondPos = new THREE.Vector3();
                 const el = this.el
                 const cylinder = this.el.querySelector("a-cylinder")
-
+                cylinder.addEventListener('click', function()
+                {
+                    //alert("点击了管道，触发了点击事件!");
+                    var elem = document.getElementById("#gpsinfo");
+                    elem.innerHTML="当前查看的是管道6";
+                })
                 const idx = setInterval(() => {
                     firstPos.copy(firstObj.object3D.position)
                     secondPos.copy(secondObj.object3D.position)
@@ -198,7 +234,12 @@
                 const secondPos = new THREE.Vector3();
                 const el = this.el
                 const cylinder = this.el.querySelector("a-cylinder")
-
+                cylinder.addEventListener('click', function()
+                {
+                    //alert("点击了管道，触发了点击事件!");
+                    var elem = document.getElementById("#gpsinfo");
+                    elem.innerHTML="当前查看的是管道7";
+                })
                 const idx = setInterval(() => {
                     firstPos.copy(firstObj.object3D.position)
                     secondPos.copy(secondObj.object3D.position)
@@ -224,7 +265,12 @@
                 const secondPos = new THREE.Vector3();
                 const el = this.el
                 const cylinder = this.el.querySelector("a-cylinder")
-
+                cylinder.addEventListener('click', function()
+                {
+                    //alert("点击了管道，触发了点击事件!");
+                    var elem = document.getElementById("#gpsinfo");
+                    elem.innerHTML="当前查看的是管道8";
+                })
                 const idx = setInterval(() => {
                     firstPos.copy(firstObj.object3D.position)
                     secondPos.copy(secondObj.object3D.position)
@@ -250,7 +296,12 @@
                 const secondPos = new THREE.Vector3();
                 const el = this.el
                 const cylinder = this.el.querySelector("a-cylinder")
-
+                cylinder.addEventListener('click', function()
+                {
+                    //alert("点击了管道，触发了点击事件!");
+                    var elem = document.getElementById("#gpsinfo");
+                    elem.innerHTML="当前查看的是管道9";
+                })
                 const idx = setInterval(() => {
                     firstPos.copy(firstObj.object3D.position)
                     secondPos.copy(secondObj.object3D.position)
@@ -276,7 +327,12 @@
                 const secondPos = new THREE.Vector3();
                 const el = this.el
                 const cylinder = this.el.querySelector("a-cylinder")
-
+                cylinder.addEventListener('click', function()
+                {
+                    //alert("点击了管道，触发了点击事件!");
+                    var elem = document.getElementById("#gpsinfo");
+                    elem.innerHTML="当前查看的是管道10";
+                })
                 const idx = setInterval(() => {
                     firstPos.copy(firstObj.object3D.position)
                     secondPos.copy(secondObj.object3D.position)
@@ -302,7 +358,12 @@
                 const secondPos = new THREE.Vector3();
                 const el = this.el
                 const cylinder = this.el.querySelector("a-cylinder")
-
+                cylinder.addEventListener('click', function()
+                {
+                    //alert("点击了管道，触发了点击事件!");
+                    var elem = document.getElementById("#gpsinfo");
+                    elem.innerHTML="当前查看的是管道11";
+                })
                 const idx = setInterval(() => {
                     firstPos.copy(firstObj.object3D.position)
                     secondPos.copy(secondObj.object3D.position)
@@ -328,7 +389,12 @@
                 const secondPos = new THREE.Vector3();
                 const el = this.el
                 const cylinder = this.el.querySelector("a-cylinder")
-
+                cylinder.addEventListener('click', function()
+                {
+                    //alert("点击了管道，触发了点击事件!");
+                    var elem = document.getElementById("#gpsinfo");
+                    elem.innerHTML="当前查看的是管道12";
+                })
                 const idx = setInterval(() => {
                     firstPos.copy(firstObj.object3D.position)
                     secondPos.copy(secondObj.object3D.position)
@@ -354,7 +420,12 @@
                 const secondPos = new THREE.Vector3();
                 const el = this.el
                 const cylinder = this.el.querySelector("a-cylinder")
-
+                cylinder.addEventListener('click', function()
+                {
+                    //alert("点击了管道，触发了点击事件!");
+                    var elem = document.getElementById("#gpsinfo");
+                    elem.innerHTML="当前查看的是管道13";
+                })
                 const idx = setInterval(() => {
                     firstPos.copy(firstObj.object3D.position)
                     secondPos.copy(secondObj.object3D.position)
@@ -380,7 +451,12 @@
                 const secondPos = new THREE.Vector3();
                 const el = this.el
                 const cylinder = this.el.querySelector("a-cylinder")
-
+                cylinder.addEventListener('click', function()
+                {
+                    //alert("点击了管道，触发了点击事件!");
+                    var elem = document.getElementById("#gpsinfo");
+                    elem.innerHTML="当前查看的是管道14";
+                })
                 const idx = setInterval(() => {
                     firstPos.copy(firstObj.object3D.position)
                     secondPos.copy(secondObj.object3D.position)
@@ -406,7 +482,12 @@
                 const secondPos = new THREE.Vector3();
                 const el = this.el
                 const cylinder = this.el.querySelector("a-cylinder")
-
+                cylinder.addEventListener('click', function()
+                {
+                    //alert("点击了管道，触发了点击事件!");
+                    var elem = document.getElementById("#gpsinfo");
+                    elem.innerHTML="当前查看的是管道15";
+                })
                 const idx = setInterval(() => {
                     firstPos.copy(firstObj.object3D.position)
                     secondPos.copy(secondObj.object3D.position)
@@ -427,12 +508,17 @@
         AFRAME.registerComponent("tunnel_16", {
             init: function () {
                 const firstObj = document.getElementById("sixth");
-                const secondObj = document.getElementById("twelvth")
+                const secondObj = document.getElementById("twelfth")
                 const firstPos = new THREE.Vector3();
                 const secondPos = new THREE.Vector3();
                 const el = this.el
                 const cylinder = this.el.querySelector("a-cylinder")
-
+                cylinder.addEventListener('click', function()
+                {
+                    //alert("点击了管道，触发了点击事件!");
+                    var elem = document.getElementById("#gpsinfo");
+                    elem.innerHTML="当前查看的是管道16";
+                })
                 const idx = setInterval(() => {
                     firstPos.copy(firstObj.object3D.position)
                     secondPos.copy(secondObj.object3D.position)
@@ -458,7 +544,12 @@
                 const secondPos = new THREE.Vector3();
                 const el = this.el
                 const cylinder = this.el.querySelector("a-cylinder")
-
+                cylinder.addEventListener('click', function()
+                {
+                    //alert("点击了管道，触发了点击事件!");
+                    var elem = document.getElementById("#gpsinfo");
+                    elem.innerHTML="当前查看的是管道17";
+                })
                 const idx = setInterval(() => {
                     firstPos.copy(firstObj.object3D.position)
                     secondPos.copy(secondObj.object3D.position)
@@ -484,7 +575,12 @@
                 const secondPos = new THREE.Vector3();
                 const el = this.el
                 const cylinder = this.el.querySelector("a-cylinder")
-
+                cylinder.addEventListener('click', function()
+                {
+                    //alert("点击了管道，触发了点击事件!");
+                    var elem = document.getElementById("#gpsinfo");
+                    elem.innerHTML="当前查看的是管道18";
+                })
                 const idx = setInterval(() => {
                     firstPos.copy(firstObj.object3D.position)
                     secondPos.copy(secondObj.object3D.position)
@@ -510,7 +606,12 @@
                 const secondPos = new THREE.Vector3();
                 const el = this.el
                 const cylinder = this.el.querySelector("a-cylinder")
-
+                cylinder.addEventListener('click', function()
+                {
+                    //alert("点击了管道，触发了点击事件!");
+                    var elem = document.getElementById("#gpsinfo");
+                    elem.innerHTML="当前查看的是管道19";
+                })
                 const idx = setInterval(() => {
                     firstPos.copy(firstObj.object3D.position)
                     secondPos.copy(secondObj.object3D.position)
@@ -537,7 +638,12 @@
                 const secondPos = new THREE.Vector3();
                 const el = this.el
                 const cylinder = this.el.querySelector("a-cylinder")
-
+                cylinder.addEventListener('click', function()
+                {
+                    //alert("点击了管道，触发了点击事件!");
+                    var elem = document.getElementById("#gpsinfo");
+                    elem.innerHTML="当前查看的是管道20";
+                })
                 const idx = setInterval(() => {
                     firstPos.copy(firstObj.object3D.position)
                     secondPos.copy(secondObj.object3D.position)
@@ -559,7 +665,12 @@
     </head>
 
     <body style="margin: 0; overflow: hidden;">
+        <div style='top: 10px; text-align: center; z-index: 100; color: wheat; position: absolute'>
+            <p id="#gpsinfo"></p>
+        </div>
         <a-scene
+            emitevents="true"
+            cursor="rayOrigin: mouse" 
             renderer="logarithmicDepthBuffer: true;"
             embedded
             loading-screen="enabled: false;"
@@ -716,11 +827,7 @@
                     position="0 -5 0"
                 > <a-sphere color="green"></a-sphere></a-entity>
                 <a-entity
-                    id="twelvth"
-                    
-
-                   
-                    
+                    id="twelfth"
                     gps-entity-place="latitude: 30.266070; longitude: 120.121680;"
                     position="0 -5 0"
                 > <a-sphere color="green"></a-sphere></a-entity>
