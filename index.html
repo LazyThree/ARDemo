@@ -1,871 +1,274 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <script src="/YQTestDemoz8neuf/Js/aframe.min.js"></script>
-        <script src="/YQTestDemoz8neuf/Js/aframe-look-at-component.min.js"></script>
-        <script src="/YQTestDemoz8neuf/Js/aframe-ar-nft.js"></script>
-        <script src="/YQTestDemoz8neuf/Js/aframe-extras.loaders.min.js"></script>
+        <script src="./Js/aframe.min.js"></script>
+        <script src="./Js/aframe-look-at-component.min.js"></script>
+        <script src="./Js/aframe-ar-nft.js"></script>
+        <script src="./Js/aframe-extras.loaders.min.js"></script>
         <script>
-       
-    AFRAME.registerComponent("tunnel", {
-            init: function () {
-                const firstObj = document.getElementById("nineth");
-                const secondObj = document.getElementById("third")
-                const firstPos = new THREE.Vector3();
-                const secondPos = new THREE.Vector3();
-                const el = this.el
-                const cylinder = this.el.querySelector("a-cylinder")
-                cylinder.addEventListener('click', function()
-                {   
-                    console.log("当前正在查看管道0信息");
-                    document.getElementById("#gpsinfo").innerHTML="管道名称:管道0";
-                    cylinder.setAttribute('color','red');
-                })
-                const idx = setInterval(() => {
-                    firstPos.copy(firstObj.object3D.position)
-                    secondPos.copy(secondObj.object3D.position)
+            function registerComponent(arr) {
+                arr.forEach((item, index) => {
+                    AFRAME.registerComponent('tunnel_' + index, {
+                        init: function () {
+                            const firstObj = document.getElementById('t' + map[index][0]);
+                            const secondObj = document.getElementById('t' + map[index][1]);
+                            const firstPos = new THREE.Vector3();
+                            const secondPos = new THREE.Vector3();
+                            const el = this.el;
+                            const cylinder = this.el.querySelector('a-cylinder');
+                            cylinder.addEventListener('click', function () {
+                                console.log(`当前正在查看管道${index}信息`);
+                                document.getElementById('#gpsinfo').innerHTML =
+                                    '管道名称:管道' + index;
+                                cylinder.setAttribute('color', 'red');
+                            });
+                            const idx = setInterval(() => {
+                                firstPos.copy(firstObj.object3D.position);
+                                secondPos.copy(secondObj.object3D.position);
 
-                    const distance = firstPos.distanceTo(secondPos)
-                    if (!distance) return;
-                    console.log("anchors ready")
-                    clearInterval(idx);
+                                const distance = firstPos.distanceTo(secondPos);
+                                if (!distance) return;
+                                console.log('anchors ready');
+                                clearInterval(idx);
 
-                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
+                                const middle = firstPos
+                                    .multiplyScalar(-1)
+                                    .add(secondPos)
+                                    .multiplyScalar(1 / 2);
 
-                    cylinder.setAttribute("height", distance)
-                    el.object3D.lookAt(firstPos)
-                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
-                }, 500)
+                                cylinder.setAttribute('height', distance);
+                                el.object3D.lookAt(firstPos);
+                                el.object3D.position.copy(middle).add(firstObj.object3D.position);
+                            }, 500);
+                        },
+                    });
+                });
             }
-        })
-    AFRAME.registerComponent("tunnel_1", {
-            init: function () {
-                const firstObj = document.getElementById("first");
-                const secondObj = document.getElementById("third")
-                const firstPos = new THREE.Vector3();
-                const secondPos = new THREE.Vector3();
-                const el = this.el
-                cylinder.addEventListener('click', function()
-                {   
-                    console.log("当前正在查看管道1信息");
-                    document.getElementById("#gpsinfo").innerHTML="管道名称:管道1";
-                    cylinder.setAttribute('color','red');
-                })
-                const idx = setInterval(() => {
-                    firstPos.copy(firstObj.object3D.position)
-                    secondPos.copy(secondObj.object3D.position)
 
-                    const distance = firstPos.distanceTo(secondPos)
-                    if (!distance) return;
-                    console.log("anchors ready")
-                    clearInterval(idx);
-
-                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
-
-                    cylinder.setAttribute("height", distance)
-                    el.object3D.lookAt(firstPos)
-                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
-                }, 500)
-            }
-        })
-        AFRAME.registerComponent("tunnel_2", {
-            init: function () {
-                const firstObj = document.getElementById("first");
-                const secondObj = document.getElementById("third")
-                const firstPos = new THREE.Vector3();
-                const secondPos = new THREE.Vector3();
-                const el = this.el
-                const cylinder = this.el.querySelector("a-cylinder")
-                cylinder.addEventListener('click', function()
-                {   
-                    console.log("当前正在查看管道2信息");
-                    document.getElementById("#gpsinfo").innerHTML="管道名称:管道2";
-                    cylinder.setAttribute('color','red');
-                })
-                const idx = setInterval(() => {
-                    firstPos.copy(firstObj.object3D.position)
-                    secondPos.copy(secondObj.object3D.position)
-
-                    const distance = firstPos.distanceTo(secondPos)
-                    if (!distance) return;
-                    console.log("anchors ready")
-                    clearInterval(idx);
-
-                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
-
-                    cylinder.setAttribute("height", distance)
-                    el.object3D.lookAt(firstPos)
-                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
-                }, 500)
-            }
-        })
-        AFRAME.registerComponent("tunnel_3", {
-            init: function () {
-                const firstObj = document.getElementById("second");
-                const secondObj = document.getElementById("third")
-                const firstPos = new THREE.Vector3();
-                const secondPos = new THREE.Vector3();
-                const el = this.el
-                const cylinder = this.el.querySelector("a-cylinder")
-                cylinder.addEventListener('click', function()
-                {   
-                    console.log("当前正在查看管道3信息");
-                    document.getElementById("#gpsinfo").innerHTML="管道名称:管道3";
-                    cylinder.setAttribute('color','red');
-                })
-                const idx = setInterval(() => {
-                    firstPos.copy(firstObj.object3D.position)
-                    secondPos.copy(secondObj.object3D.position)
-
-                    const distance = firstPos.distanceTo(secondPos)
-                    if (!distance) return;
-                    console.log("anchors ready")
-                    clearInterval(idx);
-
-                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
-
-                    cylinder.setAttribute("height", distance)
-                    el.object3D.lookAt(firstPos)
-                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
-                }, 500)
-            }
-        })
-        AFRAME.registerComponent("tunnel_4", {
-            init: function () {
-                const firstObj = document.getElementById("second");
-                const secondObj = document.getElementById("fourth")
-                const firstPos = new THREE.Vector3();
-                const secondPos = new THREE.Vector3();
-                const el = this.el
-                const cylinder = this.el.querySelector("a-cylinder")
-                cylinder.addEventListener('click', function()
-                {   
-                    console.log("当前正在查看管道4信息");
-                    document.getElementById("#gpsinfo").innerHTML="管道名称:管道4";
-                    cylinder.setAttribute('color','red');
-                })
-                const idx = setInterval(() => {
-                    firstPos.copy(firstObj.object3D.position)
-                    secondPos.copy(secondObj.object3D.position)
-
-                    const distance = firstPos.distanceTo(secondPos)
-                    if (!distance) return;
-                    console.log("anchors ready")
-                    clearInterval(idx);
-
-                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
-
-                    cylinder.setAttribute("height", distance)
-                    el.object3D.lookAt(firstPos)
-                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
-                }, 500)
-            }
-        })
-        AFRAME.registerComponent("tunnel_5", {
-            init: function () {
-                const firstObj = document.getElementById("fifth");
-                const secondObj = document.getElementById("sixth")
-                const firstPos = new THREE.Vector3();
-                const secondPos = new THREE.Vector3();
-                const el = this.el
-                const cylinder = this.el.querySelector("a-cylinder")
-                cylinder.addEventListener('click', function()
-                {   
-                    console.log("当前正在查看管道5信息");
-                    document.getElementById("#gpsinfo").innerHTML="管道名称:管道5";
-                    cylinder.setAttribute('color','red');
-                })
-                const idx = setInterval(() => {
-                    firstPos.copy(firstObj.object3D.position)
-                    secondPos.copy(secondObj.object3D.position)
-
-                    const distance = firstPos.distanceTo(secondPos)
-                    if (!distance) return;
-                    console.log("anchors ready")
-                    clearInterval(idx);
-
-                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
-
-                    cylinder.setAttribute("height", distance)
-                    el.object3D.lookAt(firstPos)
-                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
-                }, 500)
-            }
-        })
-        AFRAME.registerComponent("tunnel_6", {
-            init: function () {
-                const firstObj = document.getElementById("second");
-                const secondObj = document.getElementById("sixth")
-                const firstPos = new THREE.Vector3();
-                const secondPos = new THREE.Vector3();
-                const el = this.el
-                const cylinder = this.el.querySelector("a-cylinder")
-                cylinder.addEventListener('click', function()
-                {   
-                    console.log("当前正在查看管道6信息");
-                    document.getElementById("#gpsinfo").innerHTML="管道名称:管道6";
-                    cylinder.setAttribute('color','red');
-                })
-                const idx = setInterval(() => {
-                    firstPos.copy(firstObj.object3D.position)
-                    secondPos.copy(secondObj.object3D.position)
-
-                    const distance = firstPos.distanceTo(secondPos)
-                    if (!distance) return;
-                    console.log("anchors ready")
-                    clearInterval(idx);
-
-                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
-
-                    cylinder.setAttribute("height", distance)
-                    el.object3D.lookAt(firstPos)
-                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
-                }, 500)
-            }
-        })
-        AFRAME.registerComponent("tunnel_7", {
-            init: function () {
-                const firstObj = document.getElementById("third");
-                const secondObj = document.getElementById("seventh")
-                const firstPos = new THREE.Vector3();
-                const secondPos = new THREE.Vector3();
-                const el = this.el
-                const cylinder = this.el.querySelector("a-cylinder")
-                cylinder.addEventListener('click', function()
-                {   
-                    console.log("当前正在查看管道7信息");
-                    document.getElementById("#gpsinfo").innerHTML="管道名称:管道7";
-                    cylinder.setAttribute('color','red');
-                })
-                const idx = setInterval(() => {
-                    firstPos.copy(firstObj.object3D.position)
-                    secondPos.copy(secondObj.object3D.position)
-
-                    const distance = firstPos.distanceTo(secondPos)
-                    if (!distance) return;
-                    console.log("anchors ready")
-                    clearInterval(idx);
-
-                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
-
-                    cylinder.setAttribute("height", distance)
-                    el.object3D.lookAt(firstPos)
-                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
-                }, 500)
-            }
-        })
-        AFRAME.registerComponent("tunnel_8", {
-            init: function () {
-                const firstObj = document.getElementById("tenth");
-                const secondObj = document.getElementById("thirteenth")
-                const firstPos = new THREE.Vector3();
-                const secondPos = new THREE.Vector3();
-                const el = this.el
-                const cylinder = this.el.querySelector("a-cylinder")
-                cylinder.addEventListener('click', function()
-                {   
-                    console.log("当前正在查看管道8信息");
-                    document.getElementById("#gpsinfo").innerHTML="管道名称:管道8";
-                    cylinder.setAttribute('color','red');
-                    
-                })
-                const idx = setInterval(() => {
-                    firstPos.copy(firstObj.object3D.position)
-                    secondPos.copy(secondObj.object3D.position)
-
-                    const distance = firstPos.distanceTo(secondPos)
-                    if (!distance) return;
-                    console.log("anchors ready")
-                    clearInterval(idx);
-
-                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
-
-                    cylinder.setAttribute("height", distance)
-                    el.object3D.lookAt(firstPos)
-                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
-                }, 500)
-            }
-        })
-        AFRAME.registerComponent("tunnel_9", {
-            init: function () {
-                const firstObj = document.getElementById("fifth");
-                const secondObj = document.getElementById("tenth")
-                const firstPos = new THREE.Vector3();
-                const secondPos = new THREE.Vector3();
-                const el = this.el
-                const cylinder = this.el.querySelector("a-cylinder")
-                cylinder.addEventListener('click', function()
-                {   
-                    console.log("当前正在查看管道9信息");
-                    document.getElementById("#gpsinfo").innerHTML="管道名称:管道9";
-                    cylinder.setAttribute('color','red');
-                })
-                const idx = setInterval(() => {
-                    firstPos.copy(firstObj.object3D.position)
-                    secondPos.copy(secondObj.object3D.position)
-
-                    const distance = firstPos.distanceTo(secondPos)
-                    if (!distance) return;
-                    console.log("anchors ready")
-                    clearInterval(idx);
-
-                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
-
-                    cylinder.setAttribute("height", distance)
-                    el.object3D.lookAt(firstPos)
-                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
-                }, 500)
-            }
-        })
-        AFRAME.registerComponent("tunnel_10", {
-            init: function () {
-                const firstObj = document.getElementById("third");
-                const secondObj = document.getElementById("fifteenth")
-                const firstPos = new THREE.Vector3();
-                const secondPos = new THREE.Vector3();
-                const el = this.el
-                const cylinder = this.el.querySelector("a-cylinder")
-                cylinder.addEventListener('click', function()
-                {   
-                    console.log("当前正在查看管道10信息");
-                    document.getElementById("#gpsinfo").innerHTML="管道名称:管道10";
-                    cylinder.setAttribute('color','red');
-                })
-                const idx = setInterval(() => {
-                    firstPos.copy(firstObj.object3D.position)
-                    secondPos.copy(secondObj.object3D.position)
-
-                    const distance = firstPos.distanceTo(secondPos)
-                    if (!distance) return;
-                    console.log("anchors ready")
-                    clearInterval(idx);
-
-                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
-
-                    cylinder.setAttribute("height", distance)
-                    el.object3D.lookAt(firstPos)
-                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
-                }, 500)
-            }
-        })
-        AFRAME.registerComponent("tunnel_11", {
-            init: function () {
-                const firstObj = document.getElementById("tenth");
-                const secondObj = document.getElementById("sixteenth")
-                const firstPos = new THREE.Vector3();
-                const secondPos = new THREE.Vector3();
-                const el = this.el
-                const cylinder = this.el.querySelector("a-cylinder")
-                cylinder.addEventListener('click', function()
-                {   
-                    console.log("当前正在查看管道11信息");
-                    document.getElementById("#gpsinfo").innerHTML="管道名称:管道11";
-                    cylinder.setAttribute('color','red');
-                })
-                const idx = setInterval(() => {
-                    firstPos.copy(firstObj.object3D.position)
-                    secondPos.copy(secondObj.object3D.position)
-
-                    const distance = firstPos.distanceTo(secondPos)
-                    if (!distance) return;
-                    console.log("anchors ready")
-                    clearInterval(idx);
-
-                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
-
-                    cylinder.setAttribute("height", distance)
-                    el.object3D.lookAt(firstPos)
-                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
-                }, 500)
-            }
-        })
-        AFRAME.registerComponent("tunnel_12", {
-            init: function () {
-                const firstObj = document.getElementById("eleven");
-                const secondObj = document.getElementById("eighteenth")
-                const firstPos = new THREE.Vector3();
-                const secondPos = new THREE.Vector3();
-                const el = this.el
-                const cylinder = this.el.querySelector("a-cylinder")
-                cylinder.addEventListener('click', function()
-                {   
-                    console.log("当前正在查看管道12信息");
-                    document.getElementById("#gpsinfo").innerHTML="管道名称:管道12";
-                    cylinder.setAttribute('color','red');
-                })
-                const idx = setInterval(() => {
-                    firstPos.copy(firstObj.object3D.position)
-                    secondPos.copy(secondObj.object3D.position)
-
-                    const distance = firstPos.distanceTo(secondPos)
-                    if (!distance) return;
-                    console.log("anchors ready")
-                    clearInterval(idx);
-
-                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
-
-                    cylinder.setAttribute("height", distance)
-                    el.object3D.lookAt(firstPos)
-                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
-                }, 500)
-            }
-        })
-        AFRAME.registerComponent("tunnel_13", {
-            init: function () {
-                const firstObj = document.getElementById("nineth");
-                const secondObj = document.getElementById("nineteenth")
-                const firstPos = new THREE.Vector3();
-                const secondPos = new THREE.Vector3();
-                const el = this.el
-                const cylinder = this.el.querySelector("a-cylinder")
-                cylinder.addEventListener('click', function()
-                {   
-                    console.log("当前正在查看管道13信息");
-                    document.getElementById("#gpsinfo").innerHTML="管道名称:管道13";
-                    cylinder.setAttribute('color','red');
-                })
-                const idx = setInterval(() => {
-                    firstPos.copy(firstObj.object3D.position)
-                    secondPos.copy(secondObj.object3D.position)
-
-                    const distance = firstPos.distanceTo(secondPos)
-                    if (!distance) return;
-                    console.log("anchors ready")
-                    clearInterval(idx);
-
-                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
-
-                    cylinder.setAttribute("height", distance)
-                    el.object3D.lookAt(firstPos)
-                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
-                }, 500)
-            }
-        })
-        AFRAME.registerComponent("tunnel_14", {
-            init: function () {
-                const firstObj = document.getElementById("fifth");
-                const secondObj = document.getElementById("fifteenth")
-                const firstPos = new THREE.Vector3();
-                const secondPos = new THREE.Vector3();
-                const el = this.el
-                const cylinder = this.el.querySelector("a-cylinder")
-                cylinder.addEventListener('click', function()
-                {   
-                    console.log("当前正在查看管道14信息");
-                    document.getElementById("#gpsinfo").innerHTML="管道名称:管道14";
-                    cylinder.setAttribute('color','red');
-                })
-                const idx = setInterval(() => {
-                    firstPos.copy(firstObj.object3D.position)
-                    secondPos.copy(secondObj.object3D.position)
-
-                    const distance = firstPos.distanceTo(secondPos)
-                    if (!distance) return;
-                    console.log("anchors ready")
-                    clearInterval(idx);
-
-                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
-
-                    cylinder.setAttribute("height", distance)
-                    el.object3D.lookAt(firstPos)
-                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
-                }, 500)
-            }
-        })
-        AFRAME.registerComponent("tunnel_15", {
-            init: function () {
-                const firstObj = document.getElementById("sixth");
-                const secondObj = document.getElementById("tenth")
-                const firstPos = new THREE.Vector3();
-                const secondPos = new THREE.Vector3();
-                const el = this.el
-                const cylinder = this.el.querySelector("a-cylinder")
-                cylinder.addEventListener('click', function()
-                {   
-                    console.log("当前正在查看管道15信息");
-                    document.getElementById("#gpsinfo").innerHTML="管道名称:管道15";
-                    cylinder.setAttribute('color','red');
-                })
-                const idx = setInterval(() => {
-                    firstPos.copy(firstObj.object3D.position)
-                    secondPos.copy(secondObj.object3D.position)
-
-                    const distance = firstPos.distanceTo(secondPos)
-                    if (!distance) return;
-                    console.log("anchors ready")
-                    clearInterval(idx);
-
-                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
-
-                    cylinder.setAttribute("height", distance)
-                    el.object3D.lookAt(firstPos)
-                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
-                }, 500)
-            }
-        })
-        AFRAME.registerComponent("tunnel_16", {
-            init: function () {
-                const firstObj = document.getElementById("sixth");
-                const secondObj = document.getElementById("twelvth")
-                const firstPos = new THREE.Vector3();
-                const secondPos = new THREE.Vector3();
-                const el = this.el
-                const cylinder = this.el.querySelector("a-cylinder")
-                cylinder.addEventListener('click', function()
-                {   
-                    console.log("当前正在查看管道16信息");
-                    document.getElementById("#gpsinfo").innerHTML="管道名称:管道16";
-                    cylinder.setAttribute('color','red');
-                })
-                const idx = setInterval(() => {
-                    firstPos.copy(firstObj.object3D.position)
-                    secondPos.copy(secondObj.object3D.position)
-
-                    const distance = firstPos.distanceTo(secondPos)
-                    if (!distance) return;
-                    console.log("anchors ready")
-                    clearInterval(idx);
-
-                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
-
-                    cylinder.setAttribute("height", distance)
-                    el.object3D.lookAt(firstPos)
-                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
-                }, 500)
-            }
-        })
-        AFRAME.registerComponent("tunnel_17", {
-            init: function () {
-                const firstObj = document.getElementById("first");
-                const secondObj = document.getElementById("tenth")
-                const firstPos = new THREE.Vector3();
-                const secondPos = new THREE.Vector3();
-                const el = this.el
-                const cylinder = this.el.querySelector("a-cylinder")
-                cylinder.addEventListener('click', function()
-                {   
-                    console.log("当前正在查看管道17信息");
-                    document.getElementById("#gpsinfo").innerHTML="管道名称:管道17";
-                    cylinder.setAttribute('color','red');
-                })
-                const idx = setInterval(() => {
-                    firstPos.copy(firstObj.object3D.position)
-                    secondPos.copy(secondObj.object3D.position)
-
-                    const distance = firstPos.distanceTo(secondPos)
-                    if (!distance) return;
-                    console.log("anchors ready")
-                    clearInterval(idx);
-
-                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
-
-                    cylinder.setAttribute("height", distance)
-                    el.object3D.lookAt(firstPos)
-                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
-                }, 500)
-            }
-        })
-        AFRAME.registerComponent("tunnel_18", {
-            init: function () {
-                const firstObj = document.getElementById("second");
-                const secondObj = document.getElementById("forteenth")
-                const firstPos = new THREE.Vector3();
-                const secondPos = new THREE.Vector3();
-                const el = this.el
-                const cylinder = this.el.querySelector("a-cylinder")
-                cylinder.addEventListener('click', function()
-                {   
-                    console.log("当前正在查看管道18信息");
-                    document.getElementById("#gpsinfo").innerHTML="管道名称:管道18";
-                    cylinder.setAttribute('color','red');
-                })
-                const idx = setInterval(() => {
-                    firstPos.copy(firstObj.object3D.position)
-                    secondPos.copy(secondObj.object3D.position)
-
-                    const distance = firstPos.distanceTo(secondPos)
-                    if (!distance) return;
-                    console.log("anchors ready")
-                    clearInterval(idx);
-
-                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
-
-                    cylinder.setAttribute("height", distance)
-                    el.object3D.lookAt(firstPos)
-                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
-                }, 500)
-            }
-        })
-        AFRAME.registerComponent("tunnel_19", {
-            init: function () {
-                const firstObj = document.getElementById("third");
-                const secondObj = document.getElementById("nineth")
-                const firstPos = new THREE.Vector3();
-                const secondPos = new THREE.Vector3();
-                const el = this.el
-                const cylinder = this.el.querySelector("a-cylinder")
-                cylinder.addEventListener('click', function()
-                {   
-                    console.log("当前正在查看管道19信息");
-                    document.getElementById("#gpsinfo").innerHTML="管道名称:管道19";
-                    cylinder.setAttribute('color','red');
-                })
-                const idx = setInterval(() => {
-                    firstPos.copy(firstObj.object3D.position)
-                    secondPos.copy(secondObj.object3D.position)
-
-                    const distance = firstPos.distanceTo(secondPos)
-                    if (!distance) return;
-                    console.log("anchors ready")
-                    clearInterval(idx);
-
-                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
-
-                    cylinder.setAttribute("height", distance)
-                    el.object3D.lookAt(firstPos)
-                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
-                }, 500)
-            }
-        })
-
-        AFRAME.registerComponent("tunnel_20", {
-            init: function () {
-                const firstObj = document.getElementById("fourth");
-                const secondObj = document.getElementById("tenth")
-                const firstPos = new THREE.Vector3();
-                const secondPos = new THREE.Vector3();
-                const el = this.el
-                const cylinder = this.el.querySelector("a-cylinder")
-                cylinder.addEventListener('click', function()
-                {   
-                    console.log("当前正在查看管道20信息");
-                    document.getElementById("#gpsinfo").innerHTML="管道名称:管道20";
-                    cylinder.setAttribute('color','red');
-                })
-                const idx = setInterval(() => {
-                    firstPos.copy(firstObj.object3D.position)
-                    secondPos.copy(secondObj.object3D.position)
-
-                    const distance = firstPos.distanceTo(secondPos)
-                    if (!distance) return;
-                    console.log("anchors ready")
-                    clearInterval(idx);
-
-                    const middle = firstPos.multiplyScalar(-1).add(secondPos).multiplyScalar(1 / 2)
-
-                    cylinder.setAttribute("height", distance)
-                    el.object3D.lookAt(firstPos)
-                    el.object3D.position.copy(middle).add(firstObj.object3D.position)
-                }, 500)
-            }
-        })
+            registerComponent(new Array(21).fill(0));
         </script>
     </head>
 
-    <body style="margin: 0; overflow: hidden;">
-        <div style='top: 10px; padding:"5px"; text-align: center; z-index: 100; color: black; position: absolute'>
-            <p id="#gpsinfo" style="left:5px" align="left">用于获取管道信息</p> 
+    <body style="margin: 0; overflow: hidden">
+        <div
+            style="
+                top: 10px;
+                padding: '5px';
+                text-align: center;
+                z-index: 100;
+                color: black;
+                position: absolute;
+            "
+        >
+            <p id="#gpsinfo" style="left: 5px" align="left">用于获取管道信息</p>
         </div>
         <a-scene
             renderer="logarithmicDepthBuffer: true;"
             embedded
-            vr-mode-ui="enabled: false" 
+            vr-mode-ui="enabled: false"
             loading-screen="enabled: false;"
             arjs="sourceType: webcam;debugUIEnabled: false;"
             emitevents="true"
             cursor="rayOrigin: mouse"
-            
         >
             <a-assets>
-                <a-asset-item
-                    id="animated-asset"
-                    src="assets/asset.gltf"
-                ></a-asset-item>
+                <a-asset-item id="animated-asset" src="assets/asset.gltf"></a-asset-item>
             </a-assets>
-                <a-entity
-                    id="first"
-                    gps-entity-place="latitude: 30.266150; longitude: 120.120420;"
-                    position="0 -5 0"
-                >
-                
-                <a-sphere color="green" ></a-sphere>
-            </a-entity>
-                <a-entity
-                    id="second"
-                    gps-entity-place="latitude: 30.266300; longitude:120.120850;"
-                    position="0 -5 0"
-                >
-                <a-sphere color="green" ></a-sphere>
-            </a-entity>
-                <a-entity id="tunnel" tunnel   >
+            <a-entity id="tunnel_0" tunnel_0>
                 <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-                </a-entity>
-                <a-entity id="tunnel_1" tunnel_1   >
-                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-                </a-entity>
-                <a-entity id="tunnel_2" tunnel_2   > 
-                        <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-                </a-entity>
-                <a-entity id="tunnel_3" tunnel_3   >
-                            <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-                </a-entity>
-                <a-entity id="tunnel_4" tunnel_4   >
-                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-                </a-entity>
-                <a-entity id="tunnel_5" tunnel_5   >
-                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-                </a-entity>
-                <a-entity id="tunnel_6" tunnel_6   >
-                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-                </a-entity>
-                <a-entity id="tunnel_7" tunnel_7   >
-                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-                </a-entity>
-                <a-entity id="tunnel_8" tunnel_8   >
-                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-                </a-entity>
-                <a-entity id="tunnel_9" tunnel_9   >
-                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-                </a-entity>
-                <a-entity id="tunnel_10" tunnel_10   >
-                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-                </a-entity>
-                <a-entity id="tunnel_11" tunnel_11   >
-                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-                </a-entity>
-                <a-entity id="tunnel_12" tunnel_12   >
-                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-                </a-entity>
-                <a-entity id="tunnel_13" tunnel_13   >
-                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-                </a-entity>
-                <a-entity id="tunnel_14" tunnel_14   >
-                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-                </a-entity>
-                <a-entity id="tunnel_15" tunnel_15   >
-                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-                </a-entity>
-                <a-entity id="tunnel_16" tunnel_16   >
-                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-                </a-entity>
-                <a-entity id="tunnel_17" tunnel_17   >
-                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-                </a-entity>
-                <a-entity id="tunnel_18" tunnel_18   >
-                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-                </a-entity>
-                <a-entity id="tunnel_19" tunnel_19   >
-                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-                </a-entity>
-                <a-entity id="tunnel_20" tunnel_20   >
-                    <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-                </a-entity>
-                <a-entity
-                    id="third"
-                    gps-entity-place="latitude: 30.266270; longitude: 120.121150;"
-                    position="0 -5 0"
-                > <a-sphere color="green" ></a-sphere>
             </a-entity>
-  
-                <a-entity
-                    id="fourth"
-                    gps-entity-place="latitude: 30.266210; longitude: 120.121460;"
-                    position="0 -5 0"
-                > <a-sphere color="green" ></a-sphere></a-entity>
-                <a-entity
-                    id="fifth"
-                    gps-entity-place="latitude: 30.266640; longitude: 120.120570;"
-                    position="0 -5 0"
-                > <a-sphere color="green" ></a-sphere></a-entity>
-                <a-entity
-                    id="sixth"
-                    gps-entity-place="latitude:30.266610; longitude: 120.121110;"
-                    position="0 -5 0"
-                > <a-sphere color="green" ></a-sphere></a-entity>
-                <a-entity
-                    id="seventh"
-                    gps-entity-place="latitude: 30.266520; longitude:120.121670;"
-                    position="0 -5 0"
-                > <a-sphere color="green" ></a-sphere></a-entity>
-                <a-entity
-                    id="eighth"
-                    gps-entity-place="latitude:30.265980; longitude: 120.122100;"
-                    position="0 -5 0"
-                > <a-sphere color="green" ></a-sphere></a-entity>
-                <a-entity
-                    id="nineth"
-                    gps-entity-place="latitude: 30.265750; longitude: 120.122230;"
-                    position="0 -5 0"
-                > <a-sphere color="green" ></a-sphere></a-entity>
-                <a-entity
-                    id="tenth"
-                    gps-entity-place="latitude: 30.265320; longitude: 120.121780;"
-                    position="0 -5 0"
-                ><a-sphere color="green" ></a-sphere></a-entity>
-                <a-entity
-                    id="eleven"
-                    gps-entity-place="latitude: 30.264890; longitude: 120.121490;"
-                    position="0 -5 0"
-                > <a-sphere color="green" ></a-sphere></a-entity>
-                <a-entity
-                    id="twelvth"
-                    gps-entity-place="latitude: 30.266070; longitude: 120.121680;"
-                    position="0 -5 0"
-                > <a-sphere color="green" ></a-sphere></a-entity>
-                <a-entity
-                    id="thirteenth"
-                    gps-entity-place="latitude: 30.266700; longitude: 120.119950;"
-                    position="0 -5 0"
-                > <a-sphere color="green" ></a-sphere></a-entity>
-                <a-entity
-                    id="forteenth"
-                    gps-entity-place="latitude: 30.266350; longitude: 120.122590;"
-                    position="0 -5 0"
-                > <a-sphere color="green" ></a-sphere></a-entity>
-                <a-entity
-                    id="fifteenth"
-                    
-
-                    
-                    
-                    gps-entity-place="latitude: 30.266030; longitude: 120.122800;"
-                    position="0 -5 0"
-                > <a-sphere color="green" ></a-sphere></a-entity>
-                <a-entity
-                    id="sixteenth"
-               
-                    
-                    gps-entity-place="latitude: 30.267160; longitude: 120.120880;"
-                    position="0 -5 0"
-                > <a-sphere color="green" ></a-sphere></a-entity>
-                <a-entity
-                    id="seventeenth"
-       
-                    gps-entity-place="latitude: 30.267250; longitude: 120.120350;"
-                    position="0 -5 0"
-                > <a-sphere color="green" ></a-sphere></a-entity>
-                <a-entity
-                    id="eighteenth"
-                    gps-entity-place="latitude: 30.266970; longitude: 120.121590;"
-                    position="0 -5 0"
-                > <a-sphere color="green" ></a-sphere></a-entity>
-                <a-entity
-                    id="nineteenth"
-                    gps-entity-place="latitude: 30.266840; longitude: 120.122150;"
-                    position="0 -5 0"
-                > <a-sphere color="green" ></a-sphere></a-entity>
-       
-                
-            <a-camera 
-                      fov ="40"
-                      gps-camera="simulateLatitude: 30.265310;simulateLongitude: 120.120570;"
-                      rotation-reader
-                      look-controls-enabled='false'
-                      arjs-look-controls='smoothingFactor: 0.1'
-                      >
+            <a-entity id="tunnel_1" tunnel_1>
+                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+            </a-entity>
+            <a-entity id="tunnel_2" tunnel_2>
+                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+            </a-entity>
+            <a-entity id="tunnel_3" tunnel_3>
+                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+            </a-entity>
+            <a-entity id="tunnel_4" tunnel_4>
+                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+            </a-entity>
+            <a-entity id="tunnel_5" tunnel_5>
+                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+            </a-entity>
+            <a-entity id="tunnel_6" tunnel_6>
+                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+            </a-entity>
+            <a-entity id="tunnel_7" tunnel_7>
+                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+            </a-entity>
+            <a-entity id="tunnel_8" tunnel_8>
+                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+            </a-entity>
+            <a-entity id="tunnel_9" tunnel_9>
+                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+            </a-entity>
+            <a-entity id="tunnel_10" tunnel_10>
+                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+            </a-entity>
+            <a-entity id="tunnel_11" tunnel_11>
+                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+            </a-entity>
+            <a-entity id="tunnel_12" tunnel_12>
+                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+            </a-entity>
+            <a-entity id="tunnel_13" tunnel_13>
+                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+            </a-entity>
+            <a-entity id="tunnel_14" tunnel_14>
+                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+            </a-entity>
+            <a-entity id="tunnel_15" tunnel_15>
+                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+            </a-entity>
+            <a-entity id="tunnel_16" tunnel_16>
+                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+            </a-entity>
+            <a-entity id="tunnel_17" tunnel_17>
+                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+            </a-entity>
+            <a-entity id="tunnel_18" tunnel_18>
+                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+            </a-entity>
+            <a-entity id="tunnel_19" tunnel_19>
+                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+            </a-entity>
+            <a-entity id="tunnel_20" tunnel_20>
+                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
+            </a-entity>
+            <a-camera
+                fov="40"
+                gps-camera="simulateLatitude: 30.265310;simulateLongitude: 120.120570;"
+                rotation-reader
+                look-controls-enabled="false"
+                arjs-look-controls="smoothingFactor: 0.1"
+            >
             </a-camera>
         </a-scene>
+        <script>
+            const positionList = [
+                {
+                    latitude: 30.26615,
+                    longitude: 120.12042,
+                },
+                {
+                    latitude: 30.2663,
+                    longitude: 120.12085,
+                },
+                {
+                    latitude: 30.26627,
+                    longitude: 120.12115,
+                },
+                {
+                    latitude: 30.26621,
+                    longitude: 120.12146,
+                },
+                {
+                    latitude: 30.26664,
+                    longitude: 120.12057,
+                },
+                {
+                    latitude: 30.26661,
+                    longitude: 120.12111,
+                },
+                {
+                    latitude: 30.26652,
+                    longitude: 120.12167,
+                },
+                {
+                    latitude: 30.26598,
+                    longitude: 120.1221,
+                },
+                {
+                    latitude: 30.26575,
+                    longitude: 120.12223,
+                },
+                {
+                    latitude: 30.26532,
+                    longitude: 120.12178,
+                },
+                {
+                    latitude: 30.26489,
+                    longitude: 120.12149,
+                },
+                {
+                    latitude: 30.26607,
+                    longitude: 120.12168,
+                },
+                {
+                    latitude: 30.2667,
+                    longitude: 120.11995,
+                },
+                {
+                    latitude: 30.26635,
+                    longitude: 120.12259,
+                },
+                {
+                    latitude: 30.26603,
+                    longitude: 120.1228,
+                },
+                {
+                    latitude: 30.26716,
+                    longitude: 120.12088,
+                },
+                {
+                    latitude: 30.26725,
+                    longitude: 120.12035,
+                },
+                {
+                    latitude: 30.26697,
+                    longitude: 120.12159,
+                },
+                {
+                    latitude: 30.26684,
+                    longitude: 120.12215,
+                },
+            ];
+
+            const map = [
+                [9, 3],
+                [1, 3],
+                [1, 3],
+                [2, 3],
+                [2, 4],
+                [5, 6],
+                [2, 6],
+                [3, 7],
+                [10, 13],
+                [5, 10],
+                [3, 15],
+                [10, 16],
+                [11, 18],
+                [9, 19],
+                [5, 15],
+                [6, 10],
+                [6, 12],
+                [1, 10],
+                [2, 14],
+                [3, 9],
+                [4, 10],
+            ];
+
+            function appendEntity(arr) {
+                const scene = document.querySelector('a-scene');
+                arr.forEach((item, index) => {
+                    const entity = document.createElement('a-entity');
+                    const sphere = document.createElement('a-sphere');
+                    sphere.setAttribute('color', 'green');
+                    entity.setAttribute('gps-entity-place', {
+                        latitude: item.latitude,
+                        longitude: item.longitude,
+                    });
+                    entity.setAttribute('position', '0 -5 0');
+                    entity.setAttribute('id', 't' + (index + 1));
+                    entity.appendChild(sphere);
+                    scene.appendChild(entity);
+                });
+            }
+            appendEntity(positionList);
+        </script>
     </body>
 </html>
