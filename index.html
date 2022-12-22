@@ -441,7 +441,7 @@ window.onload=function()
     let overlap = document.querySelector(".overlap")
     value1='排污管道一';
     const dialog_html_str = '<div class="dialog_wrapper">' +
-        '<div class="dialog_close_btn" onclick="closeDialog()">X</div>' +
+        '<div class="dialog_close_btn" onclick="closeDialog_1()">X</div>' +
         '<div class="dialog_title">管道基本属性信息</div>' +
         '<div class="dialog_content">' +
         '<div class="form_item">' +
@@ -459,7 +459,7 @@ window.onload=function()
         '</div>' +
         '<div class="dialog_btn_group">' +
         '<div class="btn_confirm">确定</div>' +
-        '<div class="btn_cancel" onclick="closeDialog()">取消</div>' +
+        '<div class="btn_cancel" onclick="closeDialog_1()">取消</div>' +
         '</div>' +
         '</div>'
     function handleClick() {
@@ -468,7 +468,7 @@ window.onload=function()
         dialog_outter.appendChild(fg)
     }
 
-    function closeDialog() {
+    function closeDialog_1() {
         overlap.style.display = "none";
         let dialog = document.querySelector(".dialog_wrapper");
         dialog.remove(1);
