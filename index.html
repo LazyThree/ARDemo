@@ -383,6 +383,83 @@ window.onload=function()
       
   }
 
+  //实现传参的函数
+  function ShowPipe(index)
+  {
+      console.log("可以在点击事件当中进行传参操作");
+      var Arr = JsonData;
+      var pipeinfo = document.getElementById("PipeInfo");
+      pipeinfo.style="display:block";
+
+
+      if(Arr.length==0)
+        return; 
+    
+      var data = Arr[0+offset];
+      offset = (offset + 1) % 5 ;
+      
+
+     
+      console.log("JSON数据如下所示");
+      console.log(data);
+
+      console.log("JSON数据中的geometry如下所示");
+      console.log(data.geometry);
+
+      console.log("JSON数据中的properties如下所示");
+      console.log(data.properties);
+      
+      var properties = data.properties;
+
+
+      
+      
+      var elem = document.getElementById('name1');
+      elem.value = properties['SBID'];
+
+      var elem = document.getElementById('name2');
+      elem.value = properties['名字'];
+
+      var elem = document.getElementById('name3');
+      elem.value = properties['所属城区'];
+
+      var elem = document.getElementById('name4');
+      elem.value = properties['所属道路'];
+
+      var elem = document.getElementById('name5');
+      elem.value = properties['断面宽度(mm)'];
+
+      var elem = document.getElementById('name6');
+      elem.value = properties['断面高度(mm)'];
+
+      var elem = document.getElementById('name7');
+      elem.value = properties['电压等级'];
+
+      var elem = document.getElementById('name8');
+      elem.value = properties['电缆数量'];
+
+      var elem = document.getElementById('name9');
+      elem.value = properties['终点'];
+
+      var elem = document.getElementById('name10');
+      elem.value = properties['终点类型'];
+
+      var elem = document.getElementById('name11');
+      elem.value = properties['设施类型'];
+
+      var elem = document.getElementById('name12');
+      elem.value = properties['起点'];
+
+      var elem = document.getElementById('name13');
+      elem.value = properties['起点类型'];
+
+      var elem = document.getElementById('name14');
+      elem.value = properties['运行状态'];
+
+      
+  }
+
+
 
 
   function closeDialog()
@@ -405,7 +482,7 @@ window.onload=function()
                             cylinder.addEventListener('click', function () {
                                 cylinder.setAttribute('color', 'red');
                                 console.log(`当前正在查看管道${index}信息`);
-                                PipeValue();
+                                ShowPipe(index);
                                 document.getElementById('#gpsinfo').innerHTML =
                                     '管道名称:管道' + index;
                             });
