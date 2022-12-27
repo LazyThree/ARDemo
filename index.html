@@ -272,24 +272,6 @@
         </a-scene>
         <script>
 
-window.onload=function()
-      {
-            var hlist = document.getElementById('hlist').getElementsByTagName('li');
-            var cdivs =document.getElementById('cdivs').children;
-            for(var i=0;i<hlist.length;i++){
-                hlist[i].index=i;
-                hlist[i].onclick=function(){
-                    for(var i=0;i<hlist.length;i++){
-                        hlist[i].className='';
-                        cdivs[i].className='hide';
-                    }
-                this.className='selected';
-                cdivs[this.index].className='';
-                }
-            }
-          }
-
-
   var JsonData = '';
   function GetPipeData()
   {
@@ -305,80 +287,6 @@ window.onload=function()
   //先手动获取一下管道数据
   GetPipeData();
 
-  var offset = 0;
-  function PipeValue()
-  {
-      var Arr = JsonData;
-      var pipeinfo = document.getElementById("PipeInfo");
-      pipeinfo.style="display:block";
-
-
-      if(Arr.length==0)
-        return; 
-    
-      var data = Arr[0+offset];
-      offset = (offset + 1) % 5 ;
-      
-
-     
-      console.log("JSON数据如下所示");
-      console.log(data);
-
-      console.log("JSON数据中的geometry如下所示");
-      console.log(data.geometry);
-
-      console.log("JSON数据中的properties如下所示");
-      console.log(data.properties);
-      
-      var properties = data.properties;
-
-
-      
-      
-      var elem = document.getElementById('name1');
-      elem.value = properties['SBID'];
-
-      var elem = document.getElementById('name2');
-      elem.value = properties['名字'];
-
-      var elem = document.getElementById('name3');
-      elem.value = properties['所属城区'];
-
-      var elem = document.getElementById('name4');
-      elem.value = properties['所属道路'];
-
-      var elem = document.getElementById('name5');
-      elem.value = properties['断面宽度(mm)'];
-
-      var elem = document.getElementById('name6');
-      elem.value = properties['断面高度(mm)'];
-
-      var elem = document.getElementById('name7');
-      elem.value = properties['电压等级'];
-
-      var elem = document.getElementById('name8');
-      elem.value = properties['电缆数量'];
-
-      var elem = document.getElementById('name9');
-      elem.value = properties['终点'];
-
-      var elem = document.getElementById('name10');
-      elem.value = properties['终点类型'];
-
-      var elem = document.getElementById('name11');
-      elem.value = properties['设施类型'];
-
-      var elem = document.getElementById('name12');
-      elem.value = properties['起点'];
-
-      var elem = document.getElementById('name13');
-      elem.value = properties['起点类型'];
-
-      var elem = document.getElementById('name14');
-      elem.value = properties['运行状态'];
-
-      
-  }
 
   //实现传参的函数
   function ShowPipe(index)
@@ -467,85 +375,6 @@ window.onload=function()
   }
     
        
-   function registerComponent(arr) {
-                arr.forEach((item, index) => {
-                    AFRAME.registerComponent('tunnel_' + index, {
-                        init: function () {
-                            const firstObj = document.getElementById('t' + map[index][0]);
-                            const secondObj = document.getElementById('t' + map[index][1]);
-                            const firstPos = new THREE.Vector3();
-                            const secondPos = new THREE.Vector3();
-                            const el = this.el;
-                            const cylinder = this.el.querySelector('a-cylinder');
-                            cylinder.addEventListener('click', function () {
-                                cylinder.setAttribute('color', 'red');
-                                console.log(`当前正在查看管道${index}信息`);
-                                ShowPipe(index);
-                            });
-                            const idx = setInterval(() => {
-                                firstPos.copy(firstObj.object3D.position);
-                                secondPos.copy(secondObj.object3D.position);
-
-                                const distance = firstPos.distanceTo(secondPos);
-                                if (!distance) return;
-                                console.log('anchors ready');
-                                clearInterval(idx);
-
-                                const middle = firstPos
-                                    .multiplyScalar(-1)
-                                    .add(secondPos)
-                                    .multiplyScalar(1 / 2);
-
-                                cylinder.setAttribute('height', distance);
-                                el.object3D.lookAt(firstPos);
-                                el.object3D.position.copy(middle).add(firstObj.object3D.position);
-                            }, 500);
-                        },
-                    });
-                });
-            }
-
-            registerComponent(new Array(21).fill(0));
-
-            //定义一个脚本来实现其他的操作
-
-
-    let dialog_outter = document.querySelector(".dialog_outter")
-    let overlap = document.querySelector(".overlap")
-    value1='排污管道一';
-    const dialog_html_str = '<div class="dialog_wrapper">' +
-        '<div class="dialog_close_btn" onclick="closeDialog_1()">X</div>' +
-        '<div class="dialog_title">管道基本属性信息</div>' +
-        '<div class="dialog_content">' +
-        '<div class="form_item">' +
-        '<span>管道名称：</span>' +
-        '<input type="text" name="name" value='+value1+'>' +
-        '</div>' +
-        '<div class="form_item">' +
-        '<span>管道类型：</span>' +
-        '<input type="text" name="name">'+
-        '</div>'+
-        '<div class="form_item">'+
-        '<span>联系电话：</span>'+
-        '<input type="text" name="name">'+
-        '</div>' +
-        '</div>' +
-        '<div class="dialog_btn_group">' +
-        '<div class="btn_confirm">确定</div>' +
-        '<div class="btn_cancel" onclick="closeDialog_1()">取消</div>' +
-        '</div>' +
-        '</div>'
-    function handleClick() {
-        overlap.style.display = "block";
-        let fg = document.createRange().createContextualFragment(dialog_html_str)
-        dialog_outter.appendChild(fg)
-    }
-
-    function closeDialog_1() {
-        overlap.style.display = "none";
-        let dialog = document.querySelector(".dialog_wrapper");
-        dialog.remove(1);
-    }
 
 
             var positionList = [
@@ -626,7 +455,6 @@ window.onload=function()
                     longitude: 120.12215,
                 },
             ];
-
             var map = [
                 [9, 3],
                 [1, 3],
@@ -677,29 +505,68 @@ window.onload=function()
       console.log(MArr);
       positionList = MArr;
       map = IArr;
-      appendEntity(MArr);
   }
 
-  //加载页面的时候，首先就把数据等加载进来
-  //StoreCoord();
-  
-            function appendEntity(arr) {
-                const scene = document.querySelector('a-scene');
+    function appendEntity(arr) {
+        const scene = document.querySelector('a-scene');
+        arr.forEach((item, index) => {
+            const entity = document.createElement('a-entity');
+            const sphere = document.createElement('a-sphere');
+            sphere.setAttribute('color', 'green');
+            entity.setAttribute('gps-entity-place', {
+                latitude: item.latitude,
+                longitude: item.longitude,
+            });
+            entity.setAttribute('position', '0 -5 0');
+            entity.setAttribute('id', 't' + (index + 1));
+            entity.appendChild(sphere);
+            scene.appendChild(entity);
+        });
+    }
+    function registerComponent(arr) {
                 arr.forEach((item, index) => {
-                    const entity = document.createElement('a-entity');
-                    const sphere = document.createElement('a-sphere');
-                    sphere.setAttribute('color', 'green');
-                    entity.setAttribute('gps-entity-place', {
-                        latitude: item.latitude,
-                        longitude: item.longitude,
+                    AFRAME.registerComponent('tunnel_' + index, {
+                        init: function () {
+                            const firstObj = document.getElementById('t' + map[index][0]);
+                            const secondObj = document.getElementById('t' + map[index][1]);
+                            const firstPos = new THREE.Vector3();
+                            const secondPos = new THREE.Vector3();
+                            const el = this.el;
+                            const cylinder = this.el.querySelector('a-cylinder');
+                            cylinder.addEventListener('click', function () {
+                                cylinder.setAttribute('color', 'red');
+                                console.log(`当前正在查看管道${index}信息`);
+                                ShowPipe(index);
+                            });
+                            const idx = setInterval(() => {
+                                firstPos.copy(firstObj.object3D.position);
+                                secondPos.copy(secondObj.object3D.position);
+
+                                const distance = firstPos.distanceTo(secondPos);
+                                if (!distance) return;
+                                console.log('anchors ready');
+                                clearInterval(idx);
+
+                                const middle = firstPos
+                                    .multiplyScalar(-1)
+                                    .add(secondPos)
+                                    .multiplyScalar(1 / 2);
+
+                                cylinder.setAttribute('height', distance);
+                                el.object3D.lookAt(firstPos);
+                                el.object3D.position.copy(middle).add(firstObj.object3D.position);
+                            }, 500);
+                        },
                     });
-                    entity.setAttribute('position', '0 -5 0');
-                    entity.setAttribute('id', 't' + (index + 1));
-                    entity.appendChild(sphere);
-                    scene.appendChild(entity);
                 });
             }
-            appendEntity(positionList);
+
+    registerComponent(new Array(21).fill(0));
+    appendEntity(positionList);
+
+
+
+
         </script>
     </body>
 </html>
