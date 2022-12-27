@@ -271,7 +271,7 @@
             </a-entity>
             <a-camera
                 fov="40"
-                gps-camera="simulateLatitude: 30.265310;simulateLongitude: 120.120570;"
+                gps-camera="simulateLatitude: 30.25918323;simulateLongitude: 120.1194657;"
                 rotation-reader
                 look-controls-enabled="false"
                 arjs-look-controls="smoothingFactor: 0.1"
@@ -684,8 +684,10 @@ window.onload=function()
       positionList = MArr;
       map = IArr;
   }
-  StoreCoord();
 
+  //加载页面的时候，首先就把数据等加载进来
+  StoreCoord();
+  
             function appendEntity(arr) {
                 const scene = document.querySelector('a-scene');
                 arr.forEach((item, index) => {
