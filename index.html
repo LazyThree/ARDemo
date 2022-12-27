@@ -664,7 +664,7 @@ window.onload=function()
   {   
       MArr = [];
       var PData = JsonData;
-      let IArr = [[0,1],[2,3],[4,5],[6,7],[8,9]];
+      let IArr = [];
       for(var i = 0;i<PData.length;i++)
       {
            var Geodata = PData[i]["geometry"];
@@ -677,6 +677,7 @@ window.onload=function()
                 "latitude":latitude,
                 "longitude":longitude,
               });
+              IArr.push({i*2,i*2+1});
            }
       }
       console.log("坐标数组如下所示:");
