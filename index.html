@@ -677,10 +677,11 @@ window.onload=function()
       console.log(MArr);
       positionList = MArr;
       map = IArr;
+      appendEntity(MArr);
   }
 
   //加载页面的时候，首先就把数据等加载进来
-  //StoreCoord();
+  StoreCoord();
   
             function appendEntity(arr) {
                 const scene = document.querySelector('a-scene');
@@ -698,7 +699,6 @@ window.onload=function()
                     scene.appendChild(entity);
                 });
             }
-            appendEntity(MArr);
             //appendEntity(positionList);
         </script>
     </body>
