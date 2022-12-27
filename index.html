@@ -301,7 +301,8 @@ window.onload=function()
   var JsonData = '';
   function GetPipeData()
   {
-    fetch("http://122.224.74.82:9527/api/ar/server/pipeline?lon=120.1194657&lat=30.25918323")
+      
+    fetch("https://artest.sucsoft.com.cn:9527/api/ar/server/pipeline?lon=120.1194657&lat=30.25918323")
   .then((response) => response.text())
   .then((data) => {
     JsonData = eval("("+data+")");
