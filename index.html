@@ -271,7 +271,24 @@
             </a-camera>
         </a-scene>
         <script>
-
+        window.onload=function()
+      {
+            var hlist = document.getElementById('hlist').getElementsByTagName('li');
+            var cdivs =document.getElementById('cdivs').children;
+            for(var i=0;i<hlist.length;i++){
+                hlist[i].index=i;
+                hlist[i].onclick=function(){
+                    for(var i=0;i<hlist.length;i++){
+                        hlist[i].className='';
+                        cdivs[i].className='hide';
+                    }
+                this.className='selected';
+                cdivs[this.index].className='';
+                }
+            }
+          }
+            
+            
   var JsonData = '';
   function GetPipeData()
   {
