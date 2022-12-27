@@ -660,11 +660,12 @@ window.onload=function()
             ];
 
   var MArr = [];
+  var IArr = [];
   function StoreCoord()
   {   
       MArr = [];
       var PData = JsonData;
-      var IArr = [];
+      IArr = [];
       for(var i = 0;i<PData.length;i++)
       {
            var Geodata = PData[i]["geometry"];
@@ -677,8 +678,8 @@ window.onload=function()
                 "latitude":latitude,
                 "longitude":longitude,
               });
-              IArr.push({i*2,i*2+1});
            }
+          IArr.push([i*2,i*2+1]);
       }
       console.log("坐标数组如下所示:");
       console.log(MArr);
