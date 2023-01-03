@@ -540,12 +540,18 @@
 
   function GetGeoData(url,callback)
   {
-    fetch(url)
-    .then(res => res.json())
-    .then(res => {
-        let geodata = eval("("+res+")");
-        callback(geodata)
-    }) 
+    let ajax = new XMLHttpRequest()
+    ajax.open('GET/POST',url,true)
+    ajax.send()
+    ajax.onreadystatechange = function(){
+        if(ajax.readyState===4){
+            if(ajax.status===200){
+               let str = JSON.parse(ajax.response)
+               console.log(str);
+            }
+        }
+    }
+
   }
 
   GetGeoData(resurl,StoreCoord);
