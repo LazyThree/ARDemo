@@ -541,7 +541,7 @@
   function GetGeoData(url,callback)
   {
     let ajax = new XMLHttpRequest()
-    ajax.open('GET/POST',url,true)
+    ajax.open('GET',url,true)
     ajax.send()
     ajax.onreadystatechange = function(){
         if(ajax.readyState===4){
