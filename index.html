@@ -532,6 +532,9 @@
    fetch(geourl)
   .then((response) => response.text())
   .then((data) => {
+    console.log("fetch函数获取的数据如下所示");
+
+    console.log(data);
     JsonData = eval("("+data+")");
     StoreCoord();
   });
