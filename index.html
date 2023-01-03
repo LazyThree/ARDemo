@@ -495,7 +495,48 @@
                 [4, 10],
             ];
 
-  
+  var MArr = [];
+  var IArr = [];
+  function StoreCoord()
+  {   
+        fetch("https://artest.sucsoft.com.cn:9527/api/ar/server/pipeline?lon=120.1194657&lat=30.25918323")
+    .then((response) => response.text())
+    .then((data) => {
+        JsonData = eval("("+data+")");
+        MArr = [];
+      var PData = JsonData;
+      console.log("这里有输入的管线信息吗");
+      console.log(JsonData);
+      IArr = [];
+      for(var i = 0;i<PData.length;i++)
+      {
+           var Geodata = PData[i]["geometry"];
+           Geodata = Geodata["coordinates"];
+           for(var j=0;j<Geodata.length;j++)
+           {
+              var latitude = Geodata[j][1];
+              var longitude = Geodata[j][0];
+              MArr.push({
+                "latitude":latitude,
+                "longitude":longitude,
+              });
+           }
+          IArr.push([i*2,i*2+1]);
+      }
+      console.log("原始坐标数组如下所示");
+      console.log(MArr);
+      console.log(IArr);
+      positionList = MArr;
+      map = IArr;
+      console.log("更改后的坐标数组如下所示");
+      console.log(positionList);
+      console.log("更改之后的坐标索引数组如下所示:");
+      console.log(map);
+        
+    });
+
+  }
+
     function appendEntity(arr) {
         const scene = document.querySelector('a-scene');
         arr.forEach((item, index) => {
@@ -549,44 +590,8 @@
                     });
                 });
             }
-    var MArr = [];
-  var IArr = [];
-  function StoreCoord()
-  {   
-      GetPipeData();
-      MArr = [];
-      var PData = JsonData;
-      console.log("这里有输入的管线信息吗");
-      console.log(JsonData);
-      IArr = [];
-      for(var i = 0;i<PData.length;i++)
-      {
-           var Geodata = PData[i]["geometry"];
-           Geodata = Geodata["coordinates"];
-           for(var j=0;j<Geodata.length;j++)
-           {
-              var latitude = Geodata[j][1];
-              var longitude = Geodata[j][0];
-              MArr.push({
-                "latitude":latitude,
-                "longitude":longitude,
-              });
-           }
-          IArr.push([i*2,i*2+1]);
-      }
-      console.log("原始坐标数组如下所示");
-      console.log(MArr);
-      console.log(IArr);
-      positionList = MArr;
-      map = IArr;
-      console.log("更改后的坐标数组如下所示");
-      console.log(positionList);
-      console.log("更改之后的坐标索引数组如下所示:");
-      console.log(map);
-  }
-
-    var arrlen = map.length;
     StoreCoord();
+    var arrlen = map.length;
     registerComponent(new Array(21).fill(0));
     appendEntity(positionList);
 
