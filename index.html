@@ -533,8 +533,24 @@
   });
   }
 
-  //先手动获取一下管道数据
-  GetPipeData();
+
+
+   
+  let resurl ="https://artest.sucsoft.com.cn:9527/api/ar/server/pipeline?lon=120.1194657&lat=30.25918323";
+
+  function GetGeoData(url,callback)
+  {
+    fetch(url)
+    .then(res => res.json())
+    .then(res => {
+        let geodata = eval("("+res+")");
+        callback(geodata)
+    }) 
+  }
+
+  GetGeoData(resurl,StoreCoord);
+
+
   
   function appendEntity(arr) {
         const scene = document.querySelector('a-scene');
@@ -552,7 +568,7 @@
             scene.appendChild(entity);
         });
     }
-    function registerComponent(arr) {
+  function registerComponent(arr) {
                 arr.forEach((item, index) => {
                     AFRAME.registerComponent('tunnel_' + index, {
                         init: function () {
