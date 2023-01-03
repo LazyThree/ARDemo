@@ -121,6 +121,7 @@
         }
 
         #buttons{
+            width:100%;
             padding: 0.25em;
             z-index: 100;
             border-radius: 4px;
@@ -129,6 +130,10 @@
             color: black;
             width: 4em;
             height: 2em;
+        }
+
+        #myscene{
+            width:100%;
         }
 
     </style>
@@ -201,6 +206,7 @@
         </div>
       </div>
      
+    <div class="myscene">
         <a-scene
             renderer="logarithmicDepthBuffer: true;"
             embedded
@@ -285,6 +291,7 @@
             >
             </a-camera>
         </a-scene>
+    </div>
         <script>
         window.onload=function()
       {
