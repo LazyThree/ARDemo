@@ -120,13 +120,26 @@
             display: none;
         }
 
+        #buttons{
+            padding: 0.25em;
+            z-index: 100;
+            border-radius: 4px;
+            border: none;
+            background: white;
+            color: black;
+            width: 4em;
+            height: 2em;
+        }
+
     </style>
 
     </head>
 
     <body style="margin: 0; overflow: hidden">
-    <div onload="GetPipeData()">获取附近经纬度管线信息</div>
-    <div onload="StoreCoord()">将管道信息加载进数组当中</div>
+    <div class="buttons">
+    <button onload="GetPipeData()">获取附近经纬度管线信息</button>
+    <button onload="StoreCoord()">将管道信息加载进数组当中</button>
+    </div>
     <div class="dialog_outter" id="PipeInfo">
         <div class="dialog_wrapper">
           <div class="dialog_close_btn" onclick="closeDialog()">X</div>
