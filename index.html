@@ -323,7 +323,7 @@
   .then((response) => response.text())
   .then((data) => {
     JsonData = eval("("+data+")");
-    
+    StoreCoord(JsonData);
   });
   }
 
@@ -524,7 +524,7 @@
 
   var MArr = [];
   var IArr = [];
-  function StoreCoord()
+  function StoreCoord(JsonData)
   {   
       
       var PData = JsonData;
@@ -611,7 +611,7 @@
                     });
                 });
             }
-    StoreCoord();
+   
     var arrlen = map.length;
     registerComponent(new Array(21).fill(0));
     appendEntity(positionList);
