@@ -120,30 +120,6 @@
             display: none;
         }
 
-        .buttons{
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 5em;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-        }
-
-
-        .mybutton {
-            padding: 0.25em;
-            border-radius: 4px;
-            background: white;
-            color: black;
-            height: 2em;
-        }
-
-        .myscene{
-            width:100%;
-        }
 
     </style>
 
@@ -316,19 +292,7 @@
           }
             
   var JsonData = '';
-  function GetPipeData()
-  {
-      
-    fetch("https://artest.sucsoft.com.cn:9527/api/ar/server/pipeline?lon=120.1194657&lat=30.25918323")
-  .then((response) => response.text())
-  .then((data) => {
-    JsonData = eval("("+data+")");
-    StoreCoord(JsonData);
-  });
-  }
 
-  //先手动获取一下管道数据
-  GetPipeData();
 
 
   //实现传参的函数
@@ -558,7 +522,21 @@
       console.log(map);
   }
 
-    function appendEntity(arr) {
+  function GetPipeData()
+  {
+      
+    fetch("https://artest.sucsoft.com.cn:9527/api/ar/server/pipeline?lon=120.1194657&lat=30.25918323")
+  .then((response) => response.text())
+  .then((data) => {
+    JsonData = eval("("+data+")");
+    StoreCoord(JsonData);
+  });
+  }
+
+  //先手动获取一下管道数据
+  GetPipeData();
+  
+  function appendEntity(arr) {
         const scene = document.querySelector('a-scene');
         arr.forEach((item, index) => {
             const entity = document.createElement('a-entity');
