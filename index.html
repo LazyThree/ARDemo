@@ -298,6 +298,7 @@
     JsonData = eval("("+data+")");
     
   });
+    return JsonData;
   }
 
   //先手动获取一下管道数据
@@ -499,8 +500,8 @@
   var IArr = [];
   function StoreCoord()
   {   
-      GetPipeData();
-      var PData = JsonData;
+      
+      var PData = GetPipeData();
       console.log("这里有输入的管线信息吗");
       console.log(JsonData);
       MArr = [];
