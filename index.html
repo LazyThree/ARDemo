@@ -546,8 +546,9 @@
     console.log(data);
     JsonData = eval("("+data+")");
     StoreCoord();
-    //删除所有的节点
+    //删除所有添加的节点
     deleteAllEntity();
+    //appendEntity方法中的index值超过了界限
     appendEntity(positionList);
     registerComponent(new Array(21).fill(0));   
   });
@@ -560,30 +561,16 @@
   function deleteAllEntity()
   {
     const scene = document.querySelector('a-scene');
-    var t1 = document.getElementById('t1');
-    var t2 = document.getElementById("t2");
-    var t3 = document.getElementById("t3");
-    var t4 = document.getElementById("t4");
-    var t5 = document.getElementById("t5");
-    if(scene.contains(t1))
+    var arr = [0,1,2,3,4,5,6,7,8,9];
+    arr.forEach(item,index)
     {
-        scene.removeChild(t1);
-    }
-    if(scene.contains(t2))
-    {
-        scene.removeChild(t2);
-    }
-    if(scene.contains(t3))
-    {
-        scene.removeChild(t3);
-    }
-    if(scene.contains(t4))
-    {
-        scene.removeChild(t4);
-    }
-    if(scene.contains(t5))
-    {
-        scene.removeChild(t5);
+
+        let ename = "t" +String(item);
+        let elem = document.getElementById(ename);
+        if(scene.contains(elem))
+        {
+            scene.removeChild(elem);
+        } 
     }
     
   }
