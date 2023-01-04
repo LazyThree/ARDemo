@@ -547,7 +547,7 @@
     JsonData = eval("("+data+")");
     StoreCoord();
     //删除所有添加的节点
-    deleteAllEntity();
+    //deleteAllEntity();
     //appendEntity方法中的index值超过了界限
     appendEntity(positionList);
     registerComponent(new Array(21).fill(0));   
@@ -633,7 +633,7 @@
    
     var arrlen = map.length;
     //appendEntity 是把管道放入其中
-    deleteAllEntity();//删除所有的组件
+    //deleteAllEntity();//删除所有的组件
     appendEntity(positionList);
     registerComponent(new Array(21).fill(0));
 
