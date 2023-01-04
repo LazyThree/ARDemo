@@ -518,6 +518,8 @@
       console.log(positionList);
       console.log("更改之后的坐标索引数组如下所示:");
       console.log(map);
+      registerComponent(new Array(MArr.length).fill(0));
+      appendEntity(IArr);
   }
   
   let curlng = 120.1194657;
@@ -601,8 +603,8 @@
    
     var arrlen = map.length;
     
-    registerComponent(new Array(21).fill(0));
-    appendEntity(positionList);
+    //registerComponent(new Array(21).fill(0));
+    //appendEntity(positionList);
 
 
 
