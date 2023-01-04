@@ -577,6 +577,7 @@
                 arr.forEach((item, index) => {
                     AFRAME.registerComponent('tunnel_' + index, {
                         init: function () {
+                            console.log("注册管道${index}");
                             const firstObj = document.getElementById('t' + map[index][0]);
                             const secondObj = document.getElementById('t' + map[index][1]);
                             const firstPos = new THREE.Vector3();
