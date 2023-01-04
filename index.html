@@ -546,6 +546,7 @@
     console.log(data);
     JsonData = eval("("+data+")");
     StoreCoord();
+    //删除所有的节点
     registerComponent(new Array(21).fill(0));   
   });
   }
@@ -553,7 +554,37 @@
 
   GetPipeData(curlat,curlng);
    
-
+  //删除已有节点
+  function deleteAllEntity()
+  {
+    const scene = document.querySelector('a-scene');
+    var t1 = document.getElementById('t1');
+    var t2 = document.getElementById("t2");
+    var t3 = document.getElementById("t3");
+    var t4 = document.getElementById("t4");
+    var t5 = document.getElementById("t5");
+    if(scene.contains(t1))
+    {
+        scene.removeChild(t1);
+    }
+    if(scene.contains(t2))
+    {
+        scene.removeChild(t2);
+    }
+    if(scene.contains(t3))
+    {
+        scene.removeChild(t3);
+    }
+    if(scene.contians(t4))
+    {
+        scene.removeChild(t4);
+    }
+    if(scene.contains(t5))
+    {
+        scene.removeChild(t5);
+    }
+    
+  }
 
 
   
@@ -614,6 +645,7 @@
    
     var arrlen = map.length;
     //appendEntity 是把管道放入其中
+    deleteAllEntity();//删除所有的组件
     appendEntity(positionList);
     registerComponent(new Array(21).fill(0));
 
