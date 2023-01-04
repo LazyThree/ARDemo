@@ -566,10 +566,10 @@
     {
         let ename = "t" +String(item);
         let elem = document.getElementById(ename);
-        if(scene.contains(elem))
+        if(elem!=null)
         {
-            scene.removeChild(elem);
-        } 
+            elem.parentNode.removeChild(elem);
+        }
     })
     
   }
