@@ -547,6 +547,8 @@
     JsonData = eval("("+data+")");
     StoreCoord();
     //删除所有的节点
+    deleteAllEntity();
+    appendEntity(positionList);
     registerComponent(new Array(21).fill(0));   
   });
   }
