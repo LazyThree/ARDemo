@@ -380,7 +380,7 @@
   }
     
        
-
+    //经纬度数据
     var positionList = [
     {
         "latitude": 30.25867923,
@@ -534,8 +534,56 @@
     })
     
   }
+ 
 
-
+  //W20到  W29的井盖坐标信息
+  var JCoord=[
+  {
+        "latitude": 30.265123270000,
+        "longitude": 120.121653100000,
+    },
+    {
+        
+        "latitude": 30.264467690000,
+        "longitude": 120.121368800000,
+    },
+    {
+        "latitude": 30.263914640000,
+        "longitude": 120.121076700000,
+    },
+    {
+        "latitude":  30.264763920000,
+        "longitude": 120.121484100000,
+    },
+    {
+        "latitude": 30.263955010000,
+        "longitude": 120.121084100000,
+    },
+    {
+        "latitude": 30.263774540000,
+        "longitude": 120.121105000000,
+    },
+    {
+        "latitude": 30.264246650000,
+        "longitude": 120.121244100000,
+    },
+    {
+        "latitude": 30.262052780000,
+        "longitude": 120.120646600000,
+    },
+    {
+        "latitude": 30.262142880000,
+        "longitude": 120.120687000000,
+    },
+    {
+        "latitude": 30.262466060000,
+        "longitude": 120.120822700000,
+    },
+    {
+        "latitude": 30.262816240000,
+        "longitude": 120.120973600000,
+    },
+  ];
   
   function appendEntity(arr) {
         const scene = document.querySelector('a-scene');
@@ -553,6 +601,26 @@
             scene.appendChild(entity);
         });
     }
+
+  //function 添加井盖数据信息
+  function appendJingGai(arr)
+  {
+    const scene = document.querySelector('a-scene');
+    arr.forEach((item, index) => {
+            const entity = document.createElement('a-entity');
+            const sphere = document.createElement('a-sphere');
+            sphere.setAttribute('color', 'green');
+            entity.setAttribute('gps-entity-place', {
+                latitude: item.latitude,
+                longitude: item.longitude,
+            });
+            entity.setAttribute('position', '0 -1.5 0');
+            entity.setAttribute('id', 'install' + (index + 1));
+            entity.appendChild(sphere);
+            scene.appendChild(entity);
+        });
+  }
+
   function registerComponent(arr) {
                 arr.forEach((item, index) => {
                     AFRAME.registerComponent('tunnel_' + index, {
@@ -596,6 +664,7 @@
     var arrlen = map.length;
     //appendEntity 是把管道放入其中
     //deleteAllEntity();//删除所有的组件
+    appendJingGai(JCoord);
     appendEntity(positionList);
     registerComponent(new Array(21).fill(0));
 
