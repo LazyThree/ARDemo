@@ -166,19 +166,19 @@
               </div>
               <div class='hide' id='part_2'>
                 <div class="dialog_content">
-                  <div class="form_item"><span>管道名称：</span><input type="text" name="name" value="电力管道"></div>
+                  <div class="form_item"><span>管道名称：</span><input type="text" name="name" value=""></div>
                   <div class="form_item"><span>管道类型：</span><input type="text" name="name" value=""></div>
                 </div>  
               </div>
               <div class='hide' id='part_3'>
                 <div class="dialog_content">
-                  <div class="form_item"><span>管道名称：</span><input type="text" name="name" value="雨水管道"></div>
+                  <div class="form_item"><span>管道名称：</span><input type="text" name="name" value=""></div>
                   <div class="form_item"><span>管道类型：</span><input type="text" name="name" value=""></div>
                 </div>  
               </div>
               <div class='hide' id='part_4'>
                 <div class="dialog_content">
-                  <div class="form_item"><span>管道名称：</span><input type="text" name="name" value="油气管道"></div>
+                  <div class="form_item"><span>管道名称：</span><input type="text" name="name" value=""></div>
                   <div class="form_item"><span>管道类型：</span><input type="text" name="name" value=""></div>
                 </div>  
               </div>
@@ -306,8 +306,9 @@
 
       if(Arr.length==0)
         return; 
-    
-      var data = Arr[index];
+      if(index==0)
+          index=1;
+      var data = Arr[index-1];
      
       
 
@@ -517,7 +518,7 @@
   }
 
 
-  GetPipeData(curlat,curlng);
+  //GetPipeData(curlat,curlng);
    
   //删除已有节点
   function deleteAllEntity()
