@@ -291,10 +291,9 @@
                 <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
             </a-entity>
             <a-camera
-                gps-projected-camera
+                gps-projected-camera="gpsMinDistance:2"
                 rotation-reader
                 positionMinAccuracy="15"
-                gpsMinDistance="2"	
                 look-controls-enabled="false"
                 arjs-look-controls="smoothingFactor: 0.1"
             >
