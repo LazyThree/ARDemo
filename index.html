@@ -1,783 +1,610 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>AR.js A-Frame Location-based</title>
         <script src="./Js/aframe.min.js"></script>
+        <script type='text/javascript' src='./Js/ar-threex-location-only.js'></script>
+        <script type='text/javascript' src='./Js/aframe-ar.js'></script>
         <script src="./Js/aframe-look-at-component.min.js"></script>
-        <script src="./Js/aframe-ar-nft.js"></script>
-        <script src="./Js/aframe-extras.loaders.min.js"></script>
-            <style>
-        body {
-            padding: 0;
-            margin: 0;
-        }
-        .dialog_outter {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-                    z-index:100;
-        }
-        .dialog_wrapper {
-            width: 400px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid #f0f0f0;
-            border-radius: 10px;
-            padding: 10px;
-            position: relative;
-            box-sizing: border-box;
-                    z-index:100;
-        }
+        <style>
+            body {
+                padding: 0;
+                margin: 0;
+            }
+            .dialog_outter {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 100;
+            }
+            .dialog_wrapper {
+                width: 400px;
+                background: rgba(255, 255, 255, 0.1);
+                border: 1px solid #f0f0f0;
+                border-radius: 10px;
+                padding: 10px;
+                position: relative;
+                box-sizing: border-box;
+                z-index: 100;
+            }
 
-        .dialog_close_btn {
-            position: absolute;
-            right: 20px;
-            top: 10px;
-            cursor: pointer;
-                    z-index:100;
-        }
+            .dialog_close_btn {
+                position: absolute;
+                right: 20px;
+                top: 10px;
+                cursor: pointer;
+                z-index: 100;
+            }
 
-        .dialog_title {
-            font-size: 18px;
-            font-weight: 500;
-            text-align: center;
-                    z-index:100;
-        }
+            .dialog_title {
+                font-size: 18px;
+                font-weight: 500;
+                text-align: center;
+                z-index: 100;
+            }
 
-        .dialog_content {
-            padding: 20px;
-            box-sizing: border-box;
-            text-align: center;
-                    z-index:100;
-        }
+            .dialog_content {
+                padding: 20px;
+                box-sizing: border-box;
+                text-align: center;
+                z-index: 100;
+            }
 
-        .dialog_btn_group {
-            display: flex;
-            justify-content: flex-end;
-                    z-index:100;
-        }
+            .dialog_btn_group {
+                display: flex;
+                justify-content: flex-end;
+                z-index: 100;
+            }
 
-        .btn_confirm {
-            background-color: Blue;
-            color: #fff;
-            padding: 5px 10px;
-            border: 1px solid blue;
-            border-radius: 4px;
-            margin-right: 10px;
-            cursor: pointer;
-        }
+            .btn_confirm {
+                background-color: Blue;
+                color: #fff;
+                padding: 5px 10px;
+                border: 1px solid blue;
+                border-radius: 4px;
+                margin-right: 10px;
+                cursor: pointer;
+            }
 
-        .btn_cancel {
-            background-color: #fff;
-            padding: 5px 10px;
-            border: 1px solid #000;
-            border-radius: 4px;
-            margin-right: 10px;
-            cursor: pointer;
-        }
+            .btn_cancel {
+                background-color: #fff;
+                padding: 5px 10px;
+                border: 1px solid #000;
+                border-radius: 4px;
+                margin-right: 10px;
+                cursor: pointer;
+            }
 
-        .form_item span {
-            display: inline-block;
-            width: 100px;
-        }
+            .form_item span {
+                display: inline-block;
+                width: 100px;
+            }
 
-        .form_item input{
-            width: 200px;
-            height: 25px;
-            line-height: 25px;
-            outline: none;
-            border-radius: 5px;
-        }
+            .form_item input {
+                width: 200px;
+                height: 25px;
+                line-height: 25px;
+                outline: none;
+                border-radius: 5px;
+            }
 
-        .form_item {
-            margin-bottom: 10px;
-        }
+            .form_item {
+                margin-bottom: 10px;
+            }
 
-        .form_item:last-child {
-            margin-bottom: 0;
-        }
+            .form_item:last-child {
+                margin-bottom: 0;
+            }
 
-        .overlap {
-            z-index:100;
-            width: 100%;
-            height: 100%;
-            display: none;
-            position: absolute;
-        }
+            .overlap {
+                z-index: 100;
+                width: 100%;
+                height: 100%;
+                display: none;
+                position: absolute;
+            }
 
-          
-        body,ul,li{margin: 0;padding: 0;font:12px/1.5 arial;/* 字体12像素 行高 1.5em 字体 Arial */ }
-                ul,li{list-style:none}
-                .wrap{width:100%; margin:20px auto;}
-                .hide{display:none;}
-                #hlist{height:40px; width:100%; border:1px solid #ccc;border-bottom: none}
-                #hlist li{float:left; width:25%; line-height:40px; text-align:center; background:#d7d7d7; cursor:pointer}
-                #hlist .selected{border-bottom:none; background:#fff;}
-                #cdivs{width:100%; border:1px solid #ccc; border-top:none; text-align:center}
-        #PipeInfo{
-            z-index: 120;
-            display: none;
-        }
+            body,
+            ul,
+            li {
+                margin: 0;
+                padding: 0;
+                font: 12px/1.5 arial; /* 字体12像素 行高 1.5em 字体 Arial */
+            }
+            ul,
+            li {
+                list-style: none;
+            }
+            .wrap {
+                width: 100%;
+                margin: 20px auto;
+            }
+            .hide {
+                display: none;
+            }
+            #hlist {
+                height: 40px;
+                width: 100%;
+                border: 1px solid #ccc;
+                border-bottom: none;
+            }
+            #hlist li {
+                float: left;
+                width: 25%;
+                line-height: 40px;
+                text-align: center;
+                background: #d7d7d7;
+                cursor: pointer;
+            }
+            #hlist .selected {
+                border-bottom: none;
+                background: #fff;
+            }
+            #cdivs {
+                width: 100%;
+                border: 1px solid #ccc;
+                border-top: none;
+                text-align: center;
+            }
+            #PipeInfo {
+                z-index: 120;
+                display: none;
+            }
+        </style>
+    </head>
 
+    <body style="margin: 0px; overflow: hidden">
+        <div class="dialog_outter" id="PipeInfo">
+            <div class="dialog_wrapper">
+                <div class="dialog_close_btn" onclick="closeDialog()">X</div>
+                <div class="dialog_title">管道属性信息</div>
 
-    </style>
-    <script>
-            AFRAME.registerComponent("relative-position", {
-            init: function () {
-                function success(pos) {
-                    var crd = pos.coords;
-                    console.log('Your current position is:');
-                    console.log(`Latitude : ${crd.latitude}`);
-                    console.log(`Longitude: ${crd.longitude}`);
-                    console.log(`More or less ${crd.accuracy} meters.`);
-                    document.getElementById("#gpsinfo").innerHTML = `Latitude : ${crd.latitude}, longitude: ${crd.longitude} (accuracy ${crd.accuracy.toFixed(2)} m.)`   
+                <div class="wrap">
+                    <!-- The menu options -->
+                    <div id="hlist">
+                        <ul>
+                            <li class="selected">管道属性信息</li>
+                            <li>管道实时状态</li>
+                            <li>管道历史信息</li>
+                            <li>巡检记录信息</li>
+                        </ul>
+                    </div>
+
+                    <!-- The content box -->
+                    <div id="cdivs">
+                        <div id="part_1">
+                            <div class="dialog_content">
+                                <div class="form_item">
+                                    <span>SBID:</span
+                                    ><input type="text" id="name1" value="" />
+                                </div>
+                                <div class="form_item">
+                                    <span>管道名称：</span
+                                    ><input type="text" id="name2" value="" />
+                                </div>
+                                <div class="form_item">
+                                    <span>所属城区：</span
+                                    ><input type="text" id="name3" value="" />
+                                </div>
+                                <div class="form_item">
+                                    <span>所属道路：</span
+                                    ><input type="text" id="name4" value="" />
+                                </div>
+                                <div class="form_item">
+                                    <span>断面宽度(mm)：</span
+                                    ><input type="text" id="name5" value="" />
+                                </div>
+                                <div class="form_item">
+                                    <span>断面高度(mm)：</span
+                                    ><input type="text" id="name6" value="" />
+                                </div>
+                                <div class="form_item">
+                                    <span>电压等级：</span
+                                    ><input type="text" id="name7" value="" />
+                                </div>
+                                <div class="form_item">
+                                    <span>电缆数量：</span
+                                    ><input type="text" id="name8" value="" />
+                                </div>
+                                <div class="form_item">
+                                    <span>终点：</span
+                                    ><input type="text" id="name9" value="" />
+                                </div>
+                                <div class="form_item">
+                                    <span>终点类型：</span
+                                    ><input type="text" id="name10" value="" />
+                                </div>
+                                <div class="form_item">
+                                    <span>设施类型：</span
+                                    ><input type="text" id="name11" value="" />
+                                </div>
+                                <div class="form_item">
+                                    <span>起点：</span
+                                    ><input type="text" id="name12" value="" />
+                                </div>
+                                <div class="form_item">
+                                    <span>起点类型：</span
+                                    ><input type="text" id="name13" value="" />
+                                </div>
+                                <div class="form_item">
+                                    <span>运行状态：</span
+                                    ><input type="text" id="name14" value="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hide" id="part_2">
+                            <div class="dialog_content">
+                                <div class="form_item">
+                                    <span>管道名称：</span
+                                    ><input type="text" name="name" value="" />
+                                </div>
+                                <div class="form_item">
+                                    <span>管道类型：</span
+                                    ><input type="text" name="name" value="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hide" id="part_3">
+                            <div class="dialog_content">
+                                <div class="form_item">
+                                    <span>管道名称：</span
+                                    ><input type="text" name="name" value="" />
+                                </div>
+                                <div class="form_item">
+                                    <span>管道类型：</span
+                                    ><input type="text" name="name" value="" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hide" id="part_4">
+                            <div class="dialog_content">
+                                <div class="form_item">
+                                    <span>管道名称：</span
+                                    ><input type="text" name="name" value="" />
+                                </div>
+                                <div class="form_item">
+                                    <span>管道类型：</span
+                                    ><input type="text" name="name" value="" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a-scene cursor='rayOrigin: mouse' raycaster='near: 0; far:100' vr-mode-ui='enabled: false'
+        inspector="url: https://cdn.jsdelivr.net/gh/aframevr/aframe-inspector@master/dist/aframe-inspector.min.js" 
+            arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false' renderer='antialias: true; alpha: true'>
+            <a-camera 
+                gps-new-camera='gpsMinDistance: 1' 
+                look-controls-enabled='false' 
+                arjs-device-orientation-controls='smoothingFactor: 0.1'>
+            </a-camera>
+        </a-scene>
+        <script>
+            let curlng = 120.058946; 
+            let curlat =  30.309193;
+            var pipeData = [], deviceData = [];
+
+            window.onload = function () {
+                const cameraEl = document.querySelector("[gps-new-camera]");
+                const data = cameraEl.components["gps-new-camera"].latLonToWorld(30.309193,120.058946);
+
+                function test(longitude, latitude) {
+                    const geodata = [
+                        [longitude + 0.000001, latitude + 0.000001],
+                        [longitude - 0.000001, latitude],
+                    ]
+                    const startCoords = geodata[0], endCoords = geodata[1];
+                    const startPos = cameraEl.components["gps-new-camera"].latLonToWorld(startCoords[1],startCoords[0]);
+                    const endPos = cameraEl.components["gps-new-camera"].latLonToWorld(endCoords[1],endCoords[0]);
+                    const distance = Math.sqrt(Math.pow(endPos[0]-startPos[0], 2)+Math.pow(endPos[1]-startPos[1], 2));
+                    const middle = [(startCoords[0]+endCoords[0])/2, (startCoords[1]+endCoords[1])/2];
+                    
+                    const sphere = document.createElement('a-cylinder');
+                    sphere.setAttribute('id', 'sphere');
+                    sphere.setAttribute('color', 'purple');
+                    sphere.setAttribute('radius', 0.05);
+                    sphere.setAttribute('height', 0.05);
+                    sphere.setAttribute('gps-new-entity-place', {
+                        longitude: startCoords[0],
+                        latitude: startCoords[1]
+                    });
+                    document.querySelector("a-scene").appendChild(sphere);
+                    const sphere2 = document.createElement('a-cylinder');
+                    sphere2.setAttribute('id', 'sphere2');
+                    sphere2.setAttribute('color', 'purple');
+                    sphere2.setAttribute('radius', 0.05);
+                    sphere2.setAttribute('height', 0.05);
+                    sphere2.setAttribute('gps-new-entity-place', {
+                        longitude: endCoords[0],
+                        latitude: endCoords[1]
+                    });
+                    document.querySelector("a-scene").appendChild(sphere2);
+                    const sphere3 = document.createElement('a-cylinder');
+                    sphere3.setAttribute('id', 'sphere3');
+                    sphere3.setAttribute('color', 'purple');
+                    sphere3.setAttribute('radius', 0.05);
+                    sphere3.setAttribute('height', 0.05);
+                    // sphere3.setAttribute('position', "0 0.1 0");
+                    sphere3.setAttribute('gps-new-entity-place', {
+                        longitude: middle[0],
+                        latitude: middle[1]
+                    });
+                    document.querySelector("a-scene").appendChild(sphere3);
+                    
+                    const entity = document.createElement("a-entity");
+                    entity.setAttribute('gps-new-entity-place', {
+                        longitude: middle[0],
+                        latitude: middle[1]
+                    });
+                    const a = 180-Math.atan2(startPos[1]-endPos[1], startPos[0]-endPos[0])/Math.PI*180;
+                    entity.setAttribute("rotation", {x: 0, y: a, z: 0});
+                    // entity.object3D.lookAt(new THREE.Vector3(startPos[0],0,startPos[1]));
+                    // entity.setAttribute("look-at", "#sphere");
+
+                    const cylinder = document.createElement("a-cylinder");
+                    cylinder.setAttribute("radius", 0.05);
+                    cylinder.setAttribute("rotation", {x: 0, y: 0, z: -90});
+                    cylinder.setAttribute("height", distance);
+                    cylinder.setAttribute('material', { color: 'blue' } );
+                    cylinder.setAttribute('position', "0 -5 0");
+
+                    entity.appendChild(cylinder);
+                    document.querySelector("a-scene").appendChild(entity);
                 }
 
-                navigator.geolocation.getCurrentPosition(success,
-                    (err) => {
-                        console.warn(`ERROR(${err.code}): ${err.message}`);
-                    },
-                    {
+                let first = true;
+                cameraEl.addEventListener("gps-camera-update-position", async(e) => {
+                    const latitude = e.detail.position.latitude,
+                        longitude = e.detail.position.longitude;
+                    alert(longitude+"/"+latitude);
+                    if(first) {
+                        // getPipeData(latitude,longitude);
+                        // getDeviceData(latitude,longitude);
+                        test(longitude, latitude);
+                        first = false;
+                    }
+                })
+
+                if(navigator.geolocation) {
+                    navigator.geolocation.watchPosition(function(e) {
+                        // alert("geo:"+e.coords.longitude+"/"+e.coords.latitude)
+                    },function(err){
+                        // alert("geo error");
+                    },{
                         enableHighAccuracy: true,
                         timeout: 5000,
                         maximumAge: 0
                     })
-            }
-        })    
-    </script>
-    </head>
-
-    <body style="margin: 0px; overflow: hidden;">
-    <div style='top: 10px;  left:40px; text-align: center; z-index: 100; color: wheat; position: absolute'>
-        <p id="#gpsinfo"></p>
-        a-frame spheres, cylinder, and a THREE.js generated arc. <br>
-    </div>
-    <div class="dialog_outter" id="PipeInfo">
-        <div class="dialog_wrapper">
-          <div class="dialog_close_btn" onclick="closeDialog()">X</div>
-          <div class="dialog_title">管道属性信息</div>
-  
-        <div class="wrap">
-          <!-- The menu options -->
-          <div id="hlist">
-              <ul>
-                  <li class="selected">管道属性信息</li>
-                  <li>管道实时状态</li>
-                  <li>管道历史信息</li>
-                  <li>巡检记录信息</li>
-              </ul>
-          </div>
-  
-  
-          
-          <!-- The content box -->
-          <div id="cdivs">
-              <div id='part_1'>    
-                <div class="dialog_content">
-                  <div class="form_item"><span>SBID:</span><input type="text" id="name1" value=""></div>
-                  <div class="form_item"><span>管道名称：</span><input type="text" id="name2" value=""></div>
-                  <div class="form_item"><span>所属城区：</span><input type="text" id="name3" value=""></div>
-                  <div class="form_item"><span>所属道路：</span><input type="text" id="name4" value=""></div>
-                  <div class="form_item"><span>断面宽度(mm)：</span><input type="text" id="name5" value=""></div>
-                  <div class="form_item"><span>断面高度(mm)：</span><input type="text" id="name6" value=""></div>
-                  <div class="form_item"><span>电压等级：</span><input type="text" id="name7" value=""></div>
-                  <div class="form_item"><span>电缆数量：</span><input type="text" id="name8" value=""></div>
-                  <div class="form_item"><span>终点：</span><input type="text" id="name9" value=""></div>
-                  <div class="form_item"><span>终点类型：</span><input type="text" id="name10" value=""></div>
-                  <div class="form_item"><span>设施类型：</span><input type="text" id="name11" value=""></div>
-                  <div class="form_item"><span>起点：</span><input type="text" id="name12" value=""></div>
-                  <div class="form_item"><span>起点类型：</span><input type="text" id="name13" value=""></div>
-                  <div class="form_item"><span>运行状态：</span><input type="text" id="name14" value=""></div>
-                </div>    
-              </div>
-              <div class='hide' id='part_2'>
-                <div class="dialog_content">
-                  <div class="form_item"><span>管道名称：</span><input type="text" name="name" value=""></div>
-                  <div class="form_item"><span>管道类型：</span><input type="text" name="name" value=""></div>
-                </div>  
-              </div>
-              <div class='hide' id='part_3'>
-                <div class="dialog_content">
-                  <div class="form_item"><span>管道名称：</span><input type="text" name="name" value=""></div>
-                  <div class="form_item"><span>管道类型：</span><input type="text" name="name" value=""></div>
-                </div>  
-              </div>
-              <div class='hide' id='part_4'>
-                <div class="dialog_content">
-                  <div class="form_item"><span>管道名称：</span><input type="text" name="name" value=""></div>
-                  <div class="form_item"><span>管道类型：</span><input type="text" name="name" value=""></div>
-                </div>  
-              </div>
-          </div>
-      </div>
-        </div>
-      </div>
-     
-        <a-scene
-            renderer="logarithmicDepthBuffer: true;"
-            embedded
-            relative-position
-            vr-mode-ui="enabled: false"
-            loading-screen="enabled: false;"
-            arjs="sourceType: webcam;debugUIEnabled: false;"
-            emitevents="true"
-            cursor="rayOrigin: mouse"
-        >
-            <a-assets>
-                <a-asset-item id="animated-asset" src="assets/asset.gltf"></a-asset-item>
-            </a-assets>
-            <a-entity id="tunnel_0" tunnel_0>
-                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-            </a-entity>
-            <a-entity id="tunnel_1" tunnel_1>
-                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-            </a-entity>
-            <a-entity id="tunnel_2" tunnel_2>
-                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-            </a-entity>
-            <a-entity id="tunnel_3" tunnel_3>
-                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-            </a-entity>
-            <a-entity id="tunnel_4" tunnel_4>
-                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-            </a-entity>
-            <a-entity id="tunnel_5" tunnel_5>
-                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-            </a-entity>
-            <a-entity id="tunnel_6" tunnel_6>
-                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-            </a-entity>
-            <a-entity id="tunnel_7" tunnel_7>
-                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-            </a-entity>
-            <a-entity id="tunnel_8" tunnel_8>
-                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-            </a-entity>
-            <a-entity id="tunnel_9" tunnel_9>
-                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-            </a-entity>
-            <a-entity id="tunnel_10" tunnel_10>
-                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-            </a-entity>
-            <a-entity id="tunnel_11" tunnel_11>
-                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-            </a-entity>
-            <a-entity id="tunnel_12" tunnel_12>
-                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-            </a-entity>
-            <a-entity id="tunnel_13" tunnel_13>
-                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-            </a-entity>
-            <a-entity id="tunnel_14" tunnel_14>
-                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-            </a-entity>
-            <a-entity id="tunnel_15" tunnel_15>
-                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-            </a-entity>
-            <a-entity id="tunnel_16" tunnel_16>
-                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-            </a-entity>
-            <a-entity id="tunnel_17" tunnel_17>
-                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-            </a-entity>
-            <a-entity id="tunnel_18" tunnel_18>
-                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-            </a-entity>
-            <a-entity id="tunnel_19" tunnel_19>
-                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-            </a-entity>
-            <a-entity id="tunnel_20" tunnel_20>
-                <a-cylinder color="yellow" radius="0.25" rotation="0 90 -90"></a-cylinder>
-            </a-entity>
-            <a-camera
-                gps-projected-camera="gpsMinDistance:1"
-                rotation-reader
-                positionMinAccuracy="15"
-                look-controls-enabled="false"
-                arjs-look-controls="smoothingFactor: 0.1"
-            >
-            </a-camera>
-        </a-scene>
-        <script>
-            //     gps-camera="simulateLatitude: 30.26089;simulateLongitude: 120.119355;"
-        window.onload=function()
-      {
-            var hlist = document.getElementById('hlist').getElementsByTagName('li');
-            var cdivs =document.getElementById('cdivs').children;
-            for(var i=0;i<hlist.length;i++){
-                hlist[i].index=i;
-                hlist[i].onclick=function(){
-                    for(var i=0;i<hlist.length;i++){
-                        hlist[i].className='';
-                        cdivs[i].className='hide';
-                    }
-                this.className='selected';
-                cdivs[this.index].className='';
                 }
+
+                // setTimeout(() => {
+                //     if(first) {
+                //         test(curlng, curlat);
+                //         first = false;
+                //     }
+                // }, 2000);
+                
+                getPipeData(curlat,curlng);
+                getDeviceData(curlat,curlng);
+
+                var hlist = document
+                    .getElementById("hlist")
+                    .getElementsByTagName("li");
+                var cdivs = document.getElementById("cdivs").children;
+                for (var i = 0; i < hlist.length; i++) {
+                    hlist[i].index = i;
+                    hlist[i].onclick = function () {
+                        for (var i = 0; i < hlist.length; i++) {
+                            hlist[i].className = "";
+                            cdivs[i].className = "hide";
+                        }
+                        this.className = "selected";
+                        cdivs[this.index].className = "";
+                    };
+                }
+            };
+
+            //实现传参的函数
+            function ShowPipe(index) {
+                console.log("可以在点击事件当中进行传参操作");
+                console.log("正在查看管道" + { index });
+                var Arr = pipeData;
+                var pipeinfo = document.getElementById("PipeInfo");
+                pipeinfo.style = "display:block";
+
+                if (Arr.length == 0) return;
+                var data = Arr[index];
+
+                console.log("JSON数据如下所示");
+                console.log(data);
+
+                console.log("JSON数据中的geometry如下所示");
+                console.log(data.geometry);
+
+                console.log("JSON数据中的properties如下所示");
+                console.log(data.properties);
+
+                var properties = data.properties;
+
+                var elem = document.getElementById("name1");
+                elem.value = properties["SBID"];
+
+                var elem = document.getElementById("name2");
+                elem.value = properties["名字"];
+
+                var elem = document.getElementById("name3");
+                elem.value = properties["所属城区"];
+
+                var elem = document.getElementById("name4");
+                elem.value = properties["所属道路"];
+
+                var elem = document.getElementById("name5");
+                elem.value = properties["断面宽度(mm)"];
+
+                var elem = document.getElementById("name6");
+                elem.value = properties["断面高度(mm)"];
+
+                var elem = document.getElementById("name7");
+                elem.value = properties["电压等级"];
+
+                var elem = document.getElementById("name8");
+                elem.value = properties["电缆数量"];
+
+                var elem = document.getElementById("name9");
+                elem.value = properties["终点"];
+
+                var elem = document.getElementById("name10");
+                elem.value = properties["终点类型"];
+
+                var elem = document.getElementById("name11");
+                elem.value = properties["设施类型"];
+
+                var elem = document.getElementById("name12");
+                elem.value = properties["起点"];
+
+                var elem = document.getElementById("name13");
+                elem.value = properties["起点类型"];
+
+                var elem = document.getElementById("name14");
+                elem.value = properties["运行状态"];
             }
-          }
-            
-  var JsonData = '';
 
+            function closeDialog() {
+                var elem = document.getElementById("PipeInfo");
+                elem.style = "display:None";
+            }
 
-
-  //实现传参的函数
-  function ShowPipe(index)
-  {
-      console.log("可以在点击事件当中进行传参操作");
-      console.log("正在查看管道"+{index});
-      var Arr = JsonData;
-      var pipeinfo = document.getElementById("PipeInfo");
-      pipeinfo.style="display:block";
-
-
-      if(Arr.length==0)
-        return; 
-      var data = Arr[index];
-     
-      
-
-     
-      console.log("JSON数据如下所示");
-      console.log(data);
-
-      console.log("JSON数据中的geometry如下所示");
-      console.log(data.geometry);
-
-      console.log("JSON数据中的properties如下所示");
-      console.log(data.properties);
-      
-      var properties = data.properties;
-
-
-      
-      
-      var elem = document.getElementById('name1');
-      elem.value = properties['SBID'];
-
-      var elem = document.getElementById('name2');
-      elem.value = properties['名字'];
-
-      var elem = document.getElementById('name3');
-      elem.value = properties['所属城区'];
-
-      var elem = document.getElementById('name4');
-      elem.value = properties['所属道路'];
-
-      var elem = document.getElementById('name5');
-      elem.value = properties['断面宽度(mm)'];
-
-      var elem = document.getElementById('name6');
-      elem.value = properties['断面高度(mm)'];
-
-      var elem = document.getElementById('name7');
-      elem.value = properties['电压等级'];
-
-      var elem = document.getElementById('name8');
-      elem.value = properties['电缆数量'];
-
-      var elem = document.getElementById('name9');
-      elem.value = properties['终点'];
-
-      var elem = document.getElementById('name10');
-      elem.value = properties['终点类型'];
-
-      var elem = document.getElementById('name11');
-      elem.value = properties['设施类型'];
-
-      var elem = document.getElementById('name12');
-      elem.value = properties['起点'];
-
-      var elem = document.getElementById('name13');
-      elem.value = properties['起点类型'];
-
-      var elem = document.getElementById('name14');
-      elem.value = properties['运行状态'];
-
-      
-  }
-
-
-
-
-  function closeDialog()
-  {
-    var elem = document.getElementById("PipeInfo");
-    elem.style="display:None";
-  }
-    
-       
-    //经纬度数据
-    var positionList = [
-    {
-        "latitude": 30.25867923,
-        "longitude": 120.119437,
-    },
-    {
-        "latitude": 30.25878981,
-        "longitude": 120.1194378,
-    },
-    {
-        "latitude": 30.25918323,
-        "longitude": 120.1194657,
-    },
-    {
-        "latitude": 30.25917886,
-        "longitude": 120.1192697,
-    },
-    {
-        "latitude": 30.25918323,
-        "longitude": 120.1194657,
-    },
-    {
-        "latitude": 30.25996304,
-        "longitude": 120.1196856,
-    },
-    {
-        "latitude": 30.25878981,
-        "longitude": 120.1194378,
-    },
-    {
-        "latitude": 30.25888857,
-        "longitude": 120.1194138,
-    },
-    {
-        "latitude": 30.25888857,
-        "longitude": 120.1194138,
-    },
-    {
-        "latitude": 30.25918323,
-        "longitude": 120.1194657,
-    }
-];
-            /*
-            var map = [
-                [9, 3],
-                [1, 3],
-                [1, 3],
-                [2, 3],
-                [2, 4],
-                [5, 6],
-                [2, 6],
-                [3, 7],
-                [10, 13],
-                [5, 10],
-                [3, 15],
-                [10, 16],
-                [11, 18],
-                [9, 19],
-                [5, 15],
-                [6, 10],
-                [6, 12],
-                [1, 10],
-                [2, 14],
-                [3, 9],
-                [4, 10],
-            ];*/
-
-            var map=[
-                [0,1],
-                [2,3],
-                [4,5],
-                [6,7],
-                [8,9],
-            ];
-
-  var MArr = [];
-  var IArr = [];
-  function StoreCoord()
-  {   
-      
-      var PData = JsonData;
-      console.log("这里有输入的管线信息吗");
-      console.log(JsonData);
-      MArr = [];
-      IArr = [];
-      for(var i = 0;i<PData.length;i++)
-      {
-           var Geodata = PData[i]["geometry"];
-           Geodata = Geodata["coordinates"];
-           for(var j=0;j<Geodata.length;j++)
-           {
-              var latitude = Geodata[j][1];
-              var longitude = Geodata[j][0];
-              MArr.push({
-                "latitude":latitude,
-                "longitude":longitude,
-              });
-           }
-          IArr.push([i*2,i*2+1]);
-      }
-      console.log("原始坐标数组如下所示");
-      console.log(MArr);
-      console.log(IArr);
-      positionList = MArr;
-      map = IArr;
-      console.log("更改后的坐标数组如下所示");
-      console.log(positionList);
-      console.log("更改之后的坐标索引数组如下所示:");
-      console.log(map);
-  }
-  
-  let curlng = 120.1194657;
-  let curlat = 30.25918323;
-
-  function GetPipeData(lat=30.25918323,lng=120.1194657)
-  {
- 
-   let geourl = "https://artest.sucsoft.com.cn:9527/api/ar/server/pipeline?lon=" + String(lng) + " &lat=" + String(lat)
-   fetch(geourl)
-  .then((response) => response.text())
-  .then((data) => {
-    console.log("fetch函数获取的数据如下所示");
-
-    console.log(data);
-    JsonData = eval("("+data+")");
-    StoreCoord();
-    //删除所有添加的节点
-    //deleteAllEntity();
-    //appendEntity方法中的index值超过了界限
-    appendEntity(positionList);
-    registerComponent(new Array(21).fill(0));   
-  });
-  }
-
-
-  //GetPipeData(curlat,curlng);
-   
-  //删除已有节点
-  function deleteAllEntity()
-  {
-    const scene = document.querySelector('a-scene');
-    var arr = [1,2,3,4,5,6,7,8,9,10];
-    arr.forEach(item =>
-    {
-        let ename = "t" +String(item);
-        let elem = document.getElementById(ename);
-        if(elem!=null)
-        {
-            elem.parentNode.removeChild(elem);
-        }
-    })
-    
-  }
- 
-
-  //W20到  W47的井盖坐标信息
-  var JCoord=[
-  {
-        "latitude": 30.265123270000,
-        "longitude": 120.121653100000,
-    },
-    {
-        
-        "latitude": 30.264467690000,
-        "longitude": 120.121368800000,
-    },
-    {
-        "latitude": 30.263914640000,
-        "longitude": 120.121076700000,
-    },
-    {
-        "latitude":  30.264763920000,
-        "longitude": 120.121484100000,
-    },
-    {
-        "latitude": 30.263955010000,
-        "longitude": 120.121084100000,
-    },
-    {
-        "latitude": 30.263774540000,
-        "longitude": 120.121105000000,
-    },
-    {
-        "latitude": 30.264246650000,
-        "longitude": 120.121244100000,
-    },
-    {
-        "latitude": 30.262052780000,
-        "longitude": 120.120646600000,
-    },
-    {
-        "latitude": 30.262142880000,
-        "longitude": 120.120687000000,
-    },
-    {
-        "latitude": 30.262466060000,
-        "longitude": 120.120822700000,
-    },
-    {
-        "latitude": 30.262816240000,
-        "longitude": 120.120973600000,
-    },
-    //W30-W40
-    {
-        "latitude": 30.265756410000,
-        "longitude": 120.121786300000,
-    },
-    {
-        "latitude": 30.262816240000,
-        "longitude": 120.121929400000,
-    },
-    {
-        "latitude": 30.266027470000,
-        "longitude": 120.122050800000,
-    },
-    {
-        "latitude": 30.266419560000,
-        "longitude": 120.122207600000,
-    },
-    {
-        "latitude": 30.266776410000,
-        "longitude": 120.122367500000,
-    },
-    {
-        "latitude": 30.267107000000,
-        "longitude": 120.122502000000,
-    },
-    {
-        "latitude": 30.267395630000,
-        "longitude": 120.122639700000,
-    },
-    //这里是W38 上面是W36
-    {
-        "latitude": 30.267562770000,
-        "longitude": 120.122704800000,
-    },
-    //这里是W39
-    {
-        "latitude": 30.267917800000,
-        "longitude": 120.122849300000,
-    },
-    //这里是W40
-    {
-        "latitude": 30.268216730000,
-        "longitude": 120.122969100000,
-    },
-    //W41-W49
-    {
-        "latitude": 30.268504240000,
-        "longitude": 120.123102200000,
-    },
-    {
-        "latitude": 30.268817520000,
-        "longitude": 120.123233400000,
-    },
-    {
-        "latitude": 30.268918830000,
-        "longitude": 120.123283000000,
-    },
-    {
-        "latitude": 30.269007350000,
-        "longitude": 120.123322600000,
-    },
-    {
-        "latitude": 30.269511840000,
-        "longitude": 120.123551900000,
-    },
-    {
-        "latitude": 30.270005120000,
-        "longitude": 120.123762300000,
-    },
-   //没有W047这一个井盖设施
-    {
-        "latitude": 30.270152590000,
-        "longitude": 120.123825200000,
-    },
-    {
-        "latitude": 30.270164520000,
-        "longitude": 120.123811000000,
-    },
-  ];
-  
-  function appendEntity(arr) {
-        const scene = document.querySelector('a-scene');
-        arr.forEach((item, index) => {
-            const entity = document.createElement('a-entity');
-            const sphere = document.createElement('a-sphere');
-            sphere.setAttribute('color', 'green');
-            sphere.setAttribute('radius','0.5');
-            entity.setAttribute('gps-projected-entity-place', {
-                latitude: item.latitude,
-                longitude: item.longitude,
-            });
-            entity.setAttribute('position', '0 -15 0');
-            entity.setAttribute('id', 't' + (index + 1));
-            entity.appendChild(sphere);
-            scene.appendChild(entity);
-        });
-    }
-
-  //function 添加井盖数据信息
-  function appendJingGai(arr)
-  {
-    const scene = document.querySelector('a-scene');
-    arr.forEach((item, index) => {
-            const entity = document.createElement('a-entity');
-            const sphere = document.createElement('a-sphere');
-            sphere.setAttribute('color', 'green');
-            sphere.setAttribute('radius','0.5');
-            entity.setAttribute('gps-projected-entity-place', {
-                latitude: item.latitude,
-                longitude: item.longitude,
-            });
-            entity.setAttribute('position', '0 -5 0');
-            entity.setAttribute('id', 'install' + (index + 1));
-            entity.appendChild(sphere);
-            scene.appendChild(entity);
-        });
-  }
-
-  function registerComponent(arr) {
-                arr.forEach((item, index) => {
-                    AFRAME.registerComponent('tunnel_' + index, {
-                        init: function () {
-                            console.log("注册管道${index}");
-                            const firstObj = document.getElementById('t' + map[index][0]);
-                            const secondObj = document.getElementById('t' + map[index][1]);
-                            const firstPos = new THREE.Vector3();
-                            const secondPos = new THREE.Vector3();
-                            const el = this.el;
-                            const cylinder = this.el.querySelector('a-cylinder');
-                            cylinder.addEventListener('click', function () {
-                                cylinder.setAttribute('color', 'red');
-                                console.log(`当前正在查看管道${index}信息`);
-                                console.log(index);
-                                ShowPipe(index);
-                            });
-                            const idx = setInterval(() => {
-                                firstPos.copy(firstObj.object3D.position);
-                                secondPos.copy(secondObj.object3D.position);
-
-                                const distance = firstPos.distanceTo(secondPos);
-                                if (!distance) return;
-                                console.log('anchors ready');
-                                clearInterval(idx);
-
-                                const middle = firstPos
-                                    .multiplyScalar(-1)
-                                    .add(secondPos)
-                                    .multiplyScalar(1 / 2);
-
-                                cylinder.setAttribute('height', distance);
-                                el.object3D.lookAt(firstPos);
-                                el.object3D.position.copy(middle).add(firstObj.object3D.position);
-                            }, 500);
-                        },
+            function getPipeData(lat = 30.25918323, lng = 120.1194657) {
+                let geourl =
+                    "https://artest.sucsoft.com.cn:9527/api/ar/server/local/pipeline?lon=" +
+                    String(lng) +
+                    " &lat=" +
+                    String(lat);
+                fetch(geourl)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        pipeData = data;
+                        deletePipelineEntities();
+                        appendPipeline(pipeData);
                     });
+            }
+
+            function getDeviceData(lat = 30.25918323, lng = 120.1194657) {
+                let geourl =
+                    "https://artest.sucsoft.com.cn:9527/api/ar/server/local/device?lon=" +
+                    String(lng) +
+                    " &lat=" +
+                    String(lat);
+                fetch(geourl)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        deviceData = data;
+                        deleteDeviceEntities(deviceData);
+                        appendDevice(deviceData);
+                    });
+            }
+
+            function deletePipelineEntities() {
+                const pipelines = document.querySelectorAll(".pipeline");
+                pipelines.forEach((pipeline, index) => {
+                    const cylinder = pipeline.querySelector("a-cylinder");
+                    cylinder.removeEventListener("click", listenClick);
+                    pipeline.destroy();
+                    pipeline.parentNode.removeChild(pipeline);
+                })
+            }
+
+            function deleteDeviceEntities() {
+                const devices = document.querySelectorAll(".device");
+                devices.forEach((device, index) => {
+                    device.destroy();
+                    device.parentNode.removeChild(device);
+                })
+            }
+
+            function listenClick() {
+                const pipelines = document.querySelectorAll(".pipeline");
+                alert(pipelines.length);
+                pipelines.forEach(function(pipeline) {
+                    pipeline.setAttribute("color", "yellow");
+                })
+                this.setAttribute("color", "red");
+                ShowPipe(this.getAttribute("index"));
+            }
+
+            function appendPipeline(arr) {
+                const cameraEl = document.querySelector("[gps-new-camera]");
+                const scene = document.querySelector("a-scene");
+                arr.forEach((item, index) => {
+                    const geodata = item["geometry"]["coordinates"];
+                    const startCoords = geodata[0], endCoords = geodata[1];
+                    const startPos = cameraEl.components["gps-new-camera"].latLonToWorld(startCoords[1],startCoords[0]);
+                    const endPos = cameraEl.components["gps-new-camera"].latLonToWorld(endCoords[1],endCoords[0]);
+                    const distance = Math.sqrt(Math.pow(endPos[0]-startPos[0], 2)+Math.pow(endPos[1]-startPos[1], 2));
+                    const middle = [(startCoords[0]+endCoords[0])/2, (startCoords[1]+endCoords[1])/2];
+                    const entity = document.createElement("a-entity");
+                    const cylinder = document.createElement("a-cylinder");
+                    cylinder.setAttribute("color", "yellow");
+                    cylinder.setAttribute("radius", 1);
+                    // cylinder.setAttribute("position", {x: 0, y: -5, z:0});
+                    cylinder.setAttribute("rotation", {x: 0, y: 0, z: -90});
+                    cylinder.setAttribute("index", index);
+                    cylinder.setAttribute("height", distance);
+                    cylinder.addEventListener("click", listenClick);
+
+                    const text = document.createElement("a-text");
+                    const textScale = 100;
+                    text.setAttribute("look-at", "[gps-new-camera]");
+                    text.setAttribute("scale", {
+                        x: textScale,
+                        y: textScale,
+                        z: textScale
+                    });
+                    text.setAttribute("value", index);
+                    text.setAttribute("align", "center");
+                    text.setAttribute("color", "red");
+                    // text.setAttribute("position", {x: 0, y: -5, z:0});
+
+                    entity.setAttribute("gps-new-entity-place", {
+                        longitude: middle[0],
+                        latitude: middle[1],
+                    });
+                    // entity.object3D.lookAt(new THREE.Vector3(startPos[0],0,startPos[1]));
+                    
+                    const a = 180-Math.atan2(endPos[1]-startPos[1], endPos[0]-startPos[0])/Math.PI*180;
+                    entity.setAttribute("rotation", {x: 0, y: a, z: 0});
+                    entity.setAttribute("id", "tunnel_" + index);
+                    entity.setAttribute("class", "pipeline");
+                    entity.appendChild(cylinder);
+                    entity.appendChild(text);
+                    scene.appendChild(entity);
                 });
             }
-   
-    var arrlen = map.length;
-    //appendEntity 是把管道放入其中
-    //deleteAllEntity();//删除所有的组件
-    appendJingGai(JCoord);
-    appendEntity(positionList);
-    registerComponent(new Array(21).fill(0));
 
-
-
+            function appendDevice(arr) {
+                const cameraEl = document.querySelector("[gps-new-camera]");
+                const scene = document.querySelector("a-scene");
+                arr.forEach((item, index) => {
+                    const coordinates = item["geometry"]["coordinates"];
+                    const entity = document.createElement('a-entity');
+                    const sphere = document.createElement('a-sphere');
+                    sphere.setAttribute('color', 'green');
+                    sphere.setAttribute('radius', 1);
+                    // sphere.setAttribute('position', '0 -5 0');
+                    entity.setAttribute('gps-new-entity-place', {
+                        latitude: coordinates[1],
+                        longitude: coordinates[0]
+                    });
+                    entity.setAttribute('id', 'device' + (index + 1));
+                    entity.setAttribute('class', 'device');
+                    entity.appendChild(sphere);
+                    scene.appendChild(entity);
+                })
+            }
         </script>
     </body>
 </html>
