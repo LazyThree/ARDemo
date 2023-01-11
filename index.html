@@ -399,8 +399,8 @@
                 // }, 2000);
                 
                 //获取附近设施
-                getPipeData(curlat,curlng);
-                getDeviceData(curlat,curlng);
+                //getPipeData(curlat,curlng);
+                //getDeviceData(curlat,curlng);
 
 
                 //获取玉泉附近设施
@@ -496,7 +496,7 @@
 
             function getPipeData(lat = 30.25918323, lng = 120.1194657) {
                 let geourl =
-                    "https://artest.sucsoft.com.cn:9527/api/ar/server/local/pipeline?lon=" +
+                    "https://artest.sucsoft.com.cn:9527/api/ar/server/pipeline?lon=" +
                     String(lng) +
                     " &lat=" +
                     String(lat);
@@ -511,7 +511,7 @@
 
             function getDeviceData(lat = 30.25918323, lng = 120.1194657) {
                 let geourl =
-                    "https://artest.sucsoft.com.cn:9527/api/ar/server/local/device?lon=" +
+                    "https://artest.sucsoft.com.cn:9527/api/ar/server/device?lon=" +
                     String(lng) +
                     " &lat=" +
                     String(lat);
