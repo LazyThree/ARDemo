@@ -286,11 +286,21 @@
         <script>
             let curlng = 120.058946; 
             let curlat =  30.309193;
+
+            
+            let yqlng = 120.120700;
+            let yqlat = 30.265320;
+
             var pipeData = [], deviceData = [];
 
             window.onload = function () {
                 const cameraEl = document.querySelector("[gps-new-camera]");
-                const data = cameraEl.components["gps-new-camera"].latLonToWorld(30.309193,120.058946);
+
+                //设置相机的位置
+                //const data = cameraEl.components["gps-new-camera"].latLonToWorld(30.309193,120.058946);
+
+                //重新设置一下相机的位置
+                const data = cameraEl.components["gps-new-camera"].latLonToWorld(30.265320,120.120700);
 
                 function test(longitude, latitude) {
                     const geodata = [
@@ -388,8 +398,14 @@
                 //     }
                 // }, 2000);
                 
+                //获取附近设施
                 getPipeData(curlat,curlng);
                 getDeviceData(curlat,curlng);
+
+
+                //获取玉泉附近设施
+                getPipeData(yqlat,yqlng);
+                getDeviceData(yqlat,yqlng);
 
                 var hlist = document
                     .getElementById("hlist")
