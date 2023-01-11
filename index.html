@@ -155,7 +155,7 @@
     </head>
 
     <body style="margin: 0px; overflow: hidden">
-        <div style="position:absolute; left:10px; top: 0px; z-index: 100;" id="camera_lat">
+        <div style="position:absolute; left:10px; top: 0px; z-index: 100; color:red; font-weight: bold;" id="camera_lat">
 
         </div>
         <div class="dialog_outter" id="PipeInfo">
@@ -291,6 +291,7 @@
             let curlat =  30.309193;
 
             
+            //玉泉的位置
             let yqlng = 120.120700;
             let yqlat = 30.265320;
 
@@ -310,6 +311,7 @@
                         [longitude + 0.000001, latitude + 0.000001],
                         [longitude - 0.000001, latitude],
                     ]
+
                     const startCoords = geodata[0], endCoords = geodata[1];
                     const startPos = cameraEl.components["gps-new-camera"].latLonToWorld(startCoords[1],startCoords[0]);
                     const endPos = cameraEl.components["gps-new-camera"].latLonToWorld(endCoords[1],endCoords[0]);
@@ -573,6 +575,7 @@
                     cylinder.setAttribute("color", "yellow");
                     cylinder.setAttribute("radius", 1);
                     // cylinder.setAttribute("position", {x: 0, y: -5, z:0});
+                    //这里将管线从垂直转向为水平角度
                     cylinder.setAttribute("rotation", {x: 0, y: 0, z: -90});
                     cylinder.setAttribute("index", index);
                     cylinder.setAttribute("height", distance);
@@ -597,6 +600,8 @@
                     });
                     // entity.object3D.lookAt(new THREE.Vector3(startPos[0],0,startPos[1]));
                     
+
+                    //计算水平角度的旋转角
                     const a = 180-Math.atan2(endPos[1]-startPos[1], endPos[0]-startPos[0])/Math.PI*180;
                     entity.setAttribute("rotation", {x: 0, y: a, z: 0});
                     entity.setAttribute("id", "tunnel_" + index);
