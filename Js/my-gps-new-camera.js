@@ -1,5 +1,3 @@
-import * as AFRAME from "aframe";
-import * as THREEx from "../../../three.js/build/ar-threex-location-only.js";
 
 AFRAME.registerComponent("my-gps-new-camera", {
   schema: {
