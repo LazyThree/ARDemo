@@ -1,5 +1,5 @@
 
-AFRAME.registerComponent("my-gps-new-camera", {
+AFRAME.registerComponent("gps-new-camera", {
   schema: {
     simulateLatitude: {
       type: "number",
@@ -37,6 +37,7 @@ AFRAME.registerComponent("my-gps-new-camera", {
 
     this.threeLoc.on("gpsupdate", (gpspos) => {
       this._sendGpsUpdateEvent(gpspos.coords.longitude, gpspos.coords.latitude);
+      console.log("使用当前定位数据");
       
     });
 
