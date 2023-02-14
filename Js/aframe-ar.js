@@ -13195,12 +13195,12 @@
                 this.el.object3D
               )),
               this.threeLoc.on("gpsupdate", (A) => {
-                let mylat = Android.GetLat();
-                let mylon = Android.GetLon();
-                mylat = parseFloat(mylat);
-                mylon = parseFloat(mylon);
-                this._sendGpsUpdateEvent(mylon,mylat);
-                //this._sendGpsUpdateEvent(A.coords.longitude, A.coords.latitude);
+                //let mylat = Android.GetLat();
+                //let mylon = Android.GetLon();
+                //mylat = parseFloat(mylat);
+                //mylon = parseFloat(mylon);
+                //this._sendGpsUpdateEvent(mylon,mylat);
+                this._sendGpsUpdateEvent(A.coords.longitude, A.coords.latitude);
               }),
               this.threeLoc.on("gpserror", (A) => {
                 A >= 1 && A <= 3
